@@ -18,19 +18,28 @@ extends CharacterBody3D
 @export_category("Weapon Details")
 @export var spreadRange : int = 3
 @export var numberOfPellets : int = 5
+@export var pelletDamage : int = 15
 @export var shotgunCast : RayCast3D
 
 @export_category("Grapple Details")
-@export var restLength : float = 2.0
+@export var restLength : float = 1.0
 @export var stiffness : float = 5.0
 @export var damp : float = 1.0
 @export var grappleCast : RayCast3D
 @export var tape : Node3D
 
+@export_category("FastForward/Rewind & Press Play")
+@export var bonusMult : float = 1.5
+@export var reducedMult : float = 0.5
+@export var normalMult : float = 1.0
+
 var inputDirection : Vector2
 var direction : Vector3
 
 var cameraLock : int = -1
+
+var multStatus : int = 0
+var appliedMult : float = 1.0
 
 var launched : bool
 var grappledOn : Vector3
@@ -112,6 +121,29 @@ func updateTape() -> void:
 	tape.look_at(grappledOn)
 	tape.scale = Vector3(1, 1, distance)
 
+#handles the speedup, slowdown
+func fastForwardRewind() -> void:
+	if Input.is_action_just_pressed("Shift"):
+		match multStatus:
+			0:
+				multStatus = 1
+				print("Speed UP")
+				appliedMult = bonusMult
+			1:
+				multStatus = 0
+				print("Speed DOWN")
+				appliedMult = reducedMult
+
+#handles changing the speed back to normal
+func pressPlay() -> void:
+	if Input.is_action_just_pressed("R"):
+		print("Speed NORMAL")
+		appliedMult = normalMult
+
+func speedManager() -> void:
+	fastForwardRewind()
+	pressPlay()
+
 #handles shotgun shooting
 func shotgunShoot() -> void:
 	#handles shotgun shooting
@@ -127,15 +159,15 @@ func shotgunShoot() -> void:
 func characterMove(delta: float) -> void:
 	if is_on_floor():
 		if Input.is_action_just_pressed("Space"):
-			velocity.y = jumpForce
+			velocity.y = jumpForce * appliedMult
 	else:
 		velocity.y -= gravity * delta
 	
 	inputDirection = Input.get_vector("A", "D", "W", "S")
 	direction = (pivotY.transform.basis * Vector3(inputDirection.x, 0, inputDirection.y)).normalized()
 	if inputDirection.length() != 0:
-		velocity.x = lerpf(velocity.x, direction.x * moveSpeed, accel * delta)
-		velocity.z = lerpf(velocity.z, direction.z * moveSpeed, accel * delta)
+		velocity.x = lerpf(velocity.x, direction.x * (moveSpeed * appliedMult), accel * delta)
+		velocity.z = lerpf(velocity.z, direction.z * (moveSpeed * appliedMult), accel * delta)
 	else:
 		velocity.x = lerpf(velocity.x, 0.0, decel * delta)
 		velocity.z = lerpf(velocity.z, 0.0, decel * delta)
@@ -146,3 +178,4 @@ func _physics_process(delta: float) -> void:
 	characterMove(delta)
 	shotgunShoot()
 	tapeGrapple(delta)
+	speedManager()
