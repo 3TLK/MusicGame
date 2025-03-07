@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsppvd24l5goh"]
+
+[ext_resource type="Script" path="res://Characters/Walkman/Walkman.gd" id="1_lwat0"]
+[ext_resource type="PackedScene" uid="uid://1tbi5myahjqt" path="res://Characters/WeaponUtils/BulletMisc/BulletHole.tscn" id="2_rjimp"]
+[ext_resource type="PackedScene" uid="uid://btfwotlbgo786" path="res://Components/healthComponent.tscn" id="2_rs7qr"]
+[ext_resource type="PackedScene" uid="uid://dj1dmlygkg1r1" path="res://Components/hitboxComponent.tscn" id="3_gesee"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g6cv3"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_il0uy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b7xrx"]
+
+[node name="Walkman" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "pivotY", "pivotX", "rayCast")]
+script = ExtResource("1_lwat0")
+healthComponent = NodePath("healthComponent")
+hitboxComponent = NodePath("hitboxComponent")
+pivotY = NodePath("pivotY")
+pivotX = NodePath("pivotY/pivotX")
+rayCast = NodePath("pivotY/pivotX/RayCast3D")
+bulletHole = ExtResource("2_rjimp")
+
+[node name="collisionBox" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_g6cv3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_il0uy")
+
+[node name="healthComponent" parent="." instance=ExtResource("2_rs7qr")]
+
+[node name="hitboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_gesee")]
+healthComponent = NodePath("../healthComponent")
+
+[node name="hitbox" type="CollisionShape3D" parent="hitboxComponent"]
+shape = SubResource("CapsuleShape3D_b7xrx")
+
+[node name="pivotY" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476831, 0)
+
+[node name="pivotX" type="Node3D" parent="pivotY"]
+
+[node name="RayCast3D" type="RayCast3D" parent="pivotY/pivotX"]
+enabled = false
+target_position = Vector3(0, 0, -5)
+
+[node name="Camera3D" type="Camera3D" parent="pivotY/pivotX"]
