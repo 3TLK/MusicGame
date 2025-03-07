@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsppvd24l5goh"]
+[gd_scene load_steps=7 format=3 uid="uid://dsppvd24l5goh"]
 
 [ext_resource type="Script" path="res://Characters/Walkman/Walkman.gd" id="1_lwat0"]
-[ext_resource type="PackedScene" uid="uid://vlwvbnx4pn4g" path="res://Characters/AbilityUtils/GrappleMisc/Tape.tscn" id="2_nc4nt"]
 [ext_resource type="PackedScene" uid="uid://btfwotlbgo786" path="res://Components/healthComponent.tscn" id="2_rs7qr"]
 [ext_resource type="PackedScene" uid="uid://dj1dmlygkg1r1" path="res://Components/hitboxComponent.tscn" id="3_gesee"]
 
@@ -11,7 +10,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b7xrx"]
 
-[node name="Walkman" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "pivotY", "pivotX", "shotgunCast", "grappleCast", "tape")]
+[node name="Walkman" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "pivotY", "pivotX", "shotgunCast", "grappleCast")]
 script = ExtResource("1_lwat0")
 healthComponent = NodePath("healthComponent")
 hitboxComponent = NodePath("hitboxComponent")
@@ -19,7 +18,6 @@ pivotY = NodePath("pivotY")
 pivotX = NodePath("pivotY/pivotX")
 shotgunCast = NodePath("pivotY/pivotX/shotgunCast")
 grappleCast = NodePath("pivotY/pivotX/grappleCast")
-tape = NodePath("pivotY/pivotX/Tape")
 
 [node name="collisionBox" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_g6cv3")
@@ -40,12 +38,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476831, 0)
 
 [node name="pivotX" type="Node3D" parent="pivotY"]
 
-[node name="Tape" parent="pivotY/pivotX" instance=ExtResource("2_nc4nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-visible = false
-
 [node name="grappleCast" type="RayCast3D" parent="pivotY/pivotX"]
-target_position = Vector3(0, 0, -15)
 
 [node name="shotgunCast" type="RayCast3D" parent="pivotY/pivotX"]
 target_position = Vector3(0, 0, -5)

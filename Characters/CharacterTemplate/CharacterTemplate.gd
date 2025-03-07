@@ -10,6 +10,8 @@ extends CharacterBody3D
 
 @export_category("Character Movement")
 @export var moveSpeed : float = 5
+@export var accel : float = 5
+@export var decel : float = 8
 @export var jumpForce : float = 5
 @export var gravity : float = 9.8
 
@@ -40,12 +42,12 @@ func characterMove(delta: float) -> void:
 	
 	inputDirection = Input.get_vector("A", "D", "W", "S")
 	direction = (pivotY.transform.basis * Vector3(inputDirection.x, 0, inputDirection.y)).normalized()
-	if direction:
-		velocity.x = direction.x * moveSpeed
-		velocity.z = direction.z * moveSpeed
+	if inputDirection.length() != 0:
+		velocity.x = lerpf(velocity.x, direction.x * moveSpeed, accel * delta)
+		velocity.z = lerpf(velocity.z, direction.z * moveSpeed, accel * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, moveSpeed)
-		velocity.z = move_toward(velocity.z, 0, moveSpeed)
+		velocity.x = lerpf(velocity.x, 0.0, decel * delta)
+		velocity.z = lerpf(velocity.z, 0.0, decel * delta)
 	
 	move_and_slide()
 
