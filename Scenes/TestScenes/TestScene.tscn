@@ -1,11 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2dh3afyl6sct"]
+[gd_scene load_steps=8 format=3 uid="uid://b2dh3afyl6sct"]
 
 [ext_resource type="PackedScene" uid="uid://blxnaohgiy7h8" path="res://Characters/CharacterTemplate/CharacterTemplate.tscn" id="1_akune"]
+[ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="2_t2vwk"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_aey11"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_88un6"]
 size = Vector3(2.5, 0.1, 2.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vuolh"]
+albedo_texture = ExtResource("2_t2vwk")
+
+[sub_resource type="BoxMesh" id="BoxMesh_2yix7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_li8sg"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -21,3 +29,13 @@ shape = SubResource("BoxShape3D_88un6")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_akune")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.281768, 1.35782, 0.255361)
+
+[node name="Area3D" type="Area3D" parent="." groups=["attack"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15112, -2.54403)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+material_override = SubResource("StandardMaterial3D_vuolh")
+mesh = SubResource("BoxMesh_2yix7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_li8sg")

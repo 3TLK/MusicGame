@@ -10,5 +10,5 @@ func _ready() -> void:
 func damage(attack):
 	currentHealth -= attack
 	
-	if currentHealth >= 0:
+	if currentHealth <= 0:
 		print("I AM DEAD :O")

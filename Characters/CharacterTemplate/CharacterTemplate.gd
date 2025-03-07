@@ -1,12 +1,17 @@
 extends CharacterBody3D
 
+@export_category("Components")
+@export var healthComponent : HealthComponent
+@export var hitboxComponent : HitboxComponent
+
 @export_category("Camera Pivots")
 @export var pivotY : Node3D
 @export var pivotX : Node3D
 
 @export_category("Character Movement")
-@export var moveSpeed : int
-@export var jumpForce : int
+@export var moveSpeed : float = 5
+@export var jumpForce : float = 5
+@export var gravity : float = 9.8
 
 var inputDirection : Vector2
 var direction : Vector3
@@ -25,7 +30,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			pivotX.rotate_x(-event.relative.y * 0.01)
 			pivotX.rotation.x = clamp(pivotX.rotation.x, deg_to_rad(-60), deg_to_rad(60))
 
-func characterMove() -> void:
+func characterMove(delta: float) -> void:
+	
+	if is_on_floor():
+		if Input.is_action_just_pressed("Space"):
+			velocity.y = jumpForce
+	else:
+		velocity.y -= gravity * delta
+	
 	inputDirection = Input.get_vector("A", "D", "W", "S")
 	direction = (pivotY.transform.basis * Vector3(inputDirection.x, 0, inputDirection.y)).normalized()
 	if direction:
@@ -38,4 +50,7 @@ func characterMove() -> void:
 	move_and_slide()
 
 func _physics_process(delta: float) -> void:
-	characterMove()
+	characterMove(delta)
+	for i in hitboxComponent.get_overlapping_areas():
+		if i.is_in_group("attack"):
+			hitboxComponent.damage(100)

@@ -10,13 +10,14 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b7xrx"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("pivotY", "pivotX")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "pivotY", "pivotX")]
 script = ExtResource("1_poass")
+healthComponent = NodePath("healthComponent")
+hitboxComponent = NodePath("hitboxComponent")
 pivotY = NodePath("pivotY")
 pivotX = NodePath("pivotY/pivotX")
-moveSpeed = 5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="collisionBox" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_g6cv3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -27,10 +28,11 @@ mesh = SubResource("CapsuleMesh_il0uy")
 [node name="hitboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("2_atcq4")]
 healthComponent = NodePath("../healthComponent")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="hitboxComponent"]
+[node name="hitbox" type="CollisionShape3D" parent="hitboxComponent"]
 shape = SubResource("CapsuleShape3D_b7xrx")
 
 [node name="pivotY" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476831, 0)
 
 [node name="pivotX" type="Node3D" parent="pivotY"]
 
