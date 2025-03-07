@@ -10,7 +10,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b7xrx"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "pivotY", "pivotX")]
+[node name="CharacterTemplate" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "pivotY", "pivotX")]
 script = ExtResource("1_poass")
 healthComponent = NodePath("healthComponent")
 hitboxComponent = NodePath("hitboxComponent")
