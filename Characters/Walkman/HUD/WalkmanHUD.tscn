@@ -27,6 +27,7 @@ position = Vector2(928, 585)
 texture = ExtResource("2_26j1d")
 
 [node name="PressPlay2" type="TextureProgressBar" parent="."]
+layout_mode = 0
 offset_left = 1013.0
 offset_top = 531.0
 offset_right = 1141.0
@@ -37,5 +38,24 @@ texture_progress = ExtResource("3_ldnmf")
 [node name="PressPlay3" type="Timer" parent="."]
 wait_time = 8.0
 one_shot = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 898.0
+offset_top = 491.0
+offset_right = 962.0
+offset_bottom = 531.0
+theme_override_font_sizes/font_size = 29
+text = "Shift
+"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 1050.0
+offset_top = 492.0
+offset_right = 1114.0
+offset_bottom = 532.0
+theme_override_font_sizes/font_size = 29
+text = "R
+"
 
 [connection signal="timeout" from="PressPlay3" to="." method="endPressPlayCooldown"]

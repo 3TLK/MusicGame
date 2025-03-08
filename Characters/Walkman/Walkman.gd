@@ -22,6 +22,7 @@ extends CharacterBody3D
 @export var spreadRange : int = 3
 @export var numberOfPellets : int = 5
 @export var pelletDamage : int = 15
+@export var shotgunForce : int = 10
 @export var shotgunCast : RayCast3D
 
 @export_category("Grapple Details")
@@ -63,6 +64,10 @@ var grappleForceMagnitude : float
 var yaw : int
 var pitch : int
 var randomSpread : Vector3
+
+#shotgun knockback
+var shotgunShootDirection : Vector3
+var shotgunJump : bool
 
 #Handling Camera movement
 func _unhandled_input(event: InputEvent) -> void:
@@ -163,6 +168,7 @@ func speedManager() -> void:
 func shotgunShoot() -> void:
 	#handles shotgun shooting
 	if Input.is_action_just_pressed("LMB"):
+		shotgunKnockback()
 		for i in range(numberOfPellets):
 			pitch = randi_range(-spreadRange, spreadRange)
 			yaw = randi_range(-spreadRange, spreadRange)
@@ -170,9 +176,18 @@ func shotgunShoot() -> void:
 			shotgunCast.rotation_degrees = randomSpread
 			shotgunCast.force_raycast_update()
 
+#handles shotgun knockback
+func shotgunKnockback() -> void:
+	if !is_on_floor() && shotgunJump:
+		shotgunJump = false
+		shotgunShootDirection = pivotX.global_transform.basis.z
+		velocity += shotgunShootDirection * shotgunForce
+		
+
 #Handling player Movement
 func characterMove(delta: float) -> void:
 	if is_on_floor():
+		shotgunJump = true
 		decel = 8.0
 		if Input.is_action_just_pressed("Space"):
 			velocity.y = jumpForce * appliedMult
