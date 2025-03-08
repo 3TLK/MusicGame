@@ -4,6 +4,9 @@ extends CharacterBody3D
 @export var healthComponent : HealthComponent
 @export var hitboxComponent : HitboxComponent
 
+@export_category("HUD")
+@export var HUD : WalkmanHUD
+
 @export_category("Camera Pivots")
 @export var pivotY : Node3D
 @export var pivotX : Node3D
@@ -33,14 +36,18 @@ extends CharacterBody3D
 @export var reducedMult : float = 0.5
 @export var normalMult : float = 1.0
 
+#movement direction
 var inputDirection : Vector2
 var direction : Vector3
 
+#toggle cursor trap
 var cameraLock : int = -1
 
+#fastforward rewind and play
 var multStatus : int = 0
 var appliedMult : float = 1.0
 
+#grapple Misc
 var launched : bool
 var grappledOn : Vector3
 var targetDirection : Vector3
@@ -52,6 +59,7 @@ var targetDistance : float
 var displacement : float
 var grappleForceMagnitude : float
 
+#shotgun spread
 var yaw : int
 var pitch : int
 var randomSpread : Vector3
@@ -127,19 +135,26 @@ func fastForwardRewind() -> void:
 		match multStatus:
 			0:
 				multStatus = 1
-				print("Speed UP")
 				appliedMult = bonusMult
 			1:
 				multStatus = 0
-				print("Speed DOWN")
 				appliedMult = reducedMult
 
 #handles changing the speed back to normal
 func pressPlay() -> void:
-	if Input.is_action_just_pressed("R"):
-		print("Speed NORMAL")
-		appliedMult = normalMult
+	if !HUD.pressPlayOnCooldown:
+		if Input.is_action_just_pressed("R"):
+			HUD.startPressPlayCooldown(8.0)
+			HUD.pressPlayProgressBar.visible = true
+			HUD.pressPlayProgressBar.value = 0
+			multStatus = 0
+			appliedMult = normalMult
+	if HUD.pressPlayProgressBar.value >= 100.0:
+		HUD.pressPlayProgressBar.visible = false
+	elif HUD.pressPlayOnCooldown:
+		HUD.pressPlayProgressBar.value = ((8.1 - HUD.pressPlayCooldownTimer.time_left) / 8.0) * 100
 
+#handles all speedup functions
 func speedManager() -> void:
 	fastForwardRewind()
 	pressPlay()
@@ -158,9 +173,11 @@ func shotgunShoot() -> void:
 #Handling player Movement
 func characterMove(delta: float) -> void:
 	if is_on_floor():
+		decel = 8.0
 		if Input.is_action_just_pressed("Space"):
 			velocity.y = jumpForce * appliedMult
 	else:
+		decel = 0.5
 		velocity.y -= gravity * delta
 	
 	inputDirection = Input.get_vector("A", "D", "W", "S")
@@ -174,6 +191,7 @@ func characterMove(delta: float) -> void:
 	
 	move_and_slide()
 
+#runs all the scripts
 func _physics_process(delta: float) -> void:
 	characterMove(delta)
 	shotgunShoot()

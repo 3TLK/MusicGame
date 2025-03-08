@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://de61ucdcr3x6u"]
+
+[ext_resource type="Script" path="res://Characters/Walkman/HUD/WalkmanHud.gd" id="1_4n3np"]
+[ext_resource type="Texture2D" uid="uid://rak5o1leqyug" path="res://Characters/AbilityUtils/icons/pressPlay.png" id="1_6lcq5"]
+[ext_resource type="Texture2D" uid="uid://fgj0cgkn7u3y" path="res://Characters/AbilityUtils/icons/fastForwardandRewind.png" id="2_26j1d"]
+[ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="3_ldnmf"]
+
+[node name="WalkmanHUD" type="Control" node_paths=PackedStringArray("pressPlayProgressBar", "pressPlayCooldownTimer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4n3np")
+pressPlayProgressBar = NodePath("PressPlay2")
+pressPlayCooldownTimer = NodePath("PressPlay3")
+
+[node name="PressPlay" type="Sprite2D" parent="."]
+position = Vector2(1063, 582)
+texture = ExtResource("1_6lcq5")
+
+[node name="FastForwardandRewind" type="Sprite2D" parent="."]
+position = Vector2(928, 585)
+texture = ExtResource("2_26j1d")
+
+[node name="PressPlay2" type="TextureProgressBar" parent="."]
+offset_left = 1013.0
+offset_top = 531.0
+offset_right = 1141.0
+offset_bottom = 659.0
+scale = Vector2(0.7883, 0.780074)
+texture_progress = ExtResource("3_ldnmf")
+
+[node name="PressPlay3" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+
+[connection signal="timeout" from="PressPlay3" to="." method="endPressPlayCooldown"]

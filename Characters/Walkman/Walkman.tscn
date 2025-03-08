@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsppvd24l5goh"]
+[gd_scene load_steps=9 format=3 uid="uid://dsppvd24l5goh"]
 
 [ext_resource type="Script" path="res://Characters/Walkman/Walkman.gd" id="1_lwat0"]
 [ext_resource type="PackedScene" uid="uid://vlwvbnx4pn4g" path="res://Characters/AbilityUtils/GrappleMisc/Tape.tscn" id="2_nc4nt"]
 [ext_resource type="PackedScene" uid="uid://btfwotlbgo786" path="res://Components/healthComponent.tscn" id="2_rs7qr"]
 [ext_resource type="PackedScene" uid="uid://dj1dmlygkg1r1" path="res://Components/hitboxComponent.tscn" id="3_gesee"]
+[ext_resource type="PackedScene" uid="uid://de61ucdcr3x6u" path="res://Characters/Walkman/HUD/WalkmanHUD.tscn" id="5_lsa7h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g6cv3"]
 
@@ -11,15 +12,22 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b7xrx"]
 
-[node name="Walkman" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "pivotY", "pivotX", "shotgunCast", "grappleCast", "tape")]
+[node name="Walkman" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "HUD", "pivotY", "pivotX", "shotgunCast", "grappleCast", "tape")]
 script = ExtResource("1_lwat0")
 healthComponent = NodePath("healthComponent")
 hitboxComponent = NodePath("hitboxComponent")
+HUD = NodePath("CanvasLayer/WalkmanHUD")
 pivotY = NodePath("pivotY")
 pivotX = NodePath("pivotY/pivotX")
 shotgunCast = NodePath("pivotY/pivotX/shotgunCast")
 grappleCast = NodePath("pivotY/pivotX/grappleCast")
 tape = NodePath("pivotY/pivotX/Tape")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="WalkmanHUD" parent="CanvasLayer" instance=ExtResource("5_lsa7h")]
+offset_top = -1.0
+offset_bottom = -649.0
 
 [node name="collisionBox" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_g6cv3")
