@@ -1,12 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2dh3afyl6sct"]
+[gd_scene load_steps=12 format=3 uid="uid://b2dh3afyl6sct"]
 
 [ext_resource type="PackedScene" uid="uid://dsppvd24l5goh" path="res://Characters/Walkman/Walkman.tscn" id="1_wu1mo"]
 [ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="2_t2vwk"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_aey11"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ly2mm"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_88un6"]
-size = Vector3(2.5, 0.1, 2.5)
+[sub_resource type="Sky" id="Sky_182rs"]
+sky_material = SubResource("ProceduralSkyMaterial_ly2mm")
+
+[sub_resource type="Environment" id="Environment_7iamo"]
+background_mode = 2
+sky = SubResource("Sky_182rs")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_aey11"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vuolh"]
 albedo_texture = ExtResource("2_t2vwk")
@@ -21,28 +31,21 @@ albedo_texture = ExtResource("2_t2vwk")
 
 [node name="Node3D" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7iamo")
+
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+transform = Transform3D(13.4593, 0, 0, 0, 5, 0, 0, 0, 41.5813, 0.0428238, 0.0626926, 28.3319)
+use_collision = true
 mesh = SubResource("PlaneMesh_aey11")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="CSGMesh3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGMesh3D/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0527016, 0)
-shape = SubResource("BoxShape3D_88un6")
 
 [node name="Walkman" parent="." instance=ExtResource("1_wu1mo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70542, 0)
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, -5, 4.37114e-07, 0, -4.37114e-07, -5, 0, 6.24331, 0)
+use_collision = true
 mesh = SubResource("PlaneMesh_aey11")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="CSGMesh3D2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGMesh3D2/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0527016, 0)
-shape = SubResource("BoxShape3D_88un6")
 
 [node name="Area3D" type="Area3D" parent="." groups=["attack"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15112, -2.54403)
@@ -54,15 +57,22 @@ mesh = SubResource("BoxMesh_2yix7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_li8sg")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1.00595, 3.91183)
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.33041, 11.5682, 17.6215)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3"]
 mesh = SubResource("BoxMesh_uotng")
+skeleton = NodePath("../../StaticBody3D3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
 shape = SubResource("BoxShape3D_io5s1")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7479, 0)
-omni_range = 16.159
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.60835, 5.78412, 15.4575)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("BoxMesh_uotng")
+skeleton = NodePath("../../StaticBody3D2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_io5s1")

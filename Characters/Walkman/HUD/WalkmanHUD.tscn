@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://de61ucdcr3x6u"]
+[gd_scene load_steps=7 format=3 uid="uid://de61ucdcr3x6u"]
 
 [ext_resource type="Script" path="res://Characters/Walkman/HUD/WalkmanHud.gd" id="1_4n3np"]
 [ext_resource type="Texture2D" uid="uid://rak5o1leqyug" path="res://Characters/AbilityUtils/icons/pressPlay.png" id="1_6lcq5"]
 [ext_resource type="Texture2D" uid="uid://fgj0cgkn7u3y" path="res://Characters/AbilityUtils/icons/fastForwardandRewind.png" id="2_26j1d"]
 [ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="3_ldnmf"]
+[ext_resource type="Texture2D" uid="uid://buqjc76fwsv07" path="res://Characters/AbilityUtils/icons/grapple.png" id="5_3bxt3"]
+[ext_resource type="Texture2D" uid="uid://cabxh13xfs5f4" path="res://Characters/AbilityUtils/icons/shoot.png" id="6_57g1j"]
 
 [node name="WalkmanHUD" type="Control" node_paths=PackedStringArray("pressPlayProgressBar", "pressPlayCooldownTimer")]
 layout_mode = 3
@@ -50,6 +52,7 @@ text = "Shift
 "
 
 [node name="Label2" type="Label" parent="."]
+layout_mode = 0
 offset_left = 1050.0
 offset_top = 492.0
 offset_right = 1114.0
@@ -57,5 +60,38 @@ offset_bottom = 532.0
 theme_override_font_sizes/font_size = 29
 text = "R
 "
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 764.0
+offset_top = 494.0
+offset_right = 828.0
+offset_bottom = 534.0
+theme_override_font_sizes/font_size = 29
+text = "RMB
+"
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 626.0
+offset_top = 489.0
+offset_right = 690.0
+offset_bottom = 529.0
+theme_override_font_sizes/font_size = 29
+text = "LMB
+"
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(572, 320)
+color = Color(0.784314, 0.784314, 0, 1)
+polygon = PackedVector2Array(0, 0, 8, 0, 8, 8, 0, 8)
+
+[node name="Grapple" type="Sprite2D" parent="."]
+position = Vector2(796, 583)
+texture = ExtResource("5_3bxt3")
+
+[node name="Shoot" type="Sprite2D" parent="."]
+position = Vector2(657, 583)
+texture = ExtResource("6_57g1j")
 
 [connection signal="timeout" from="PressPlay3" to="." method="endPressPlayCooldown"]

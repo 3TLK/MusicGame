@@ -1,8 +1,11 @@
 extends CharacterBody3D
+class_name Walkman
 
 @export_category("Components")
 @export var healthComponent : HealthComponent
 @export var hitboxComponent : HitboxComponent
+@export var grappleComponent : GrappleComponent
+@export var movementComponent : PlayerMovementComponent
 
 @export_category("HUD")
 @export var HUD : WalkmanHUD
@@ -10,6 +13,7 @@ extends CharacterBody3D
 @export_category("Camera Pivots")
 @export var pivotY : Node3D
 @export var pivotX : Node3D
+@export var camera : Camera3D
 
 @export_category("Character Movement")
 @export var moveSpeed : float = 7
@@ -29,8 +33,6 @@ extends CharacterBody3D
 @export var restLength : float = 1.0
 @export var stiffness : float = 5.0
 @export var damp : float = 1.0
-@export var grappleCast : RayCast3D
-@export var tape : Node3D
 
 @export_category("FastForward/Rewind & Press Play")
 @export var bonusMult : float = 1.5
@@ -41,24 +43,16 @@ extends CharacterBody3D
 var inputDirection : Vector2
 var direction : Vector3
 
+#acceleration defaults
+var defaultaccel : float = 5
+var defaultdecel : float = 8
+
 #toggle cursor trap
 var cameraLock : int = -1
 
 #fastforward rewind and play
 var multStatus : int = 0
 var appliedMult : float = 1.0
-
-#grapple Misc
-var launched : bool
-var grappledOn : Vector3
-var targetDirection : Vector3
-var force : Vector3
-var grappleForce : Vector3
-var damping : Vector3
-var velocityDot : float
-var targetDistance : float
-var displacement : float
-var grappleForceMagnitude : float
 
 #shotgun spread
 var yaw : int
@@ -82,57 +76,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			pivotX.rotate_x(-event.relative.y * 0.01)
 			pivotX.rotation.x = clamp(pivotX.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 
-#handles the grapple hook
-func grappleLaunched() -> void:
-	if grappleCast.is_colliding():
-		grappledOn = grappleCast.get_collision_point()
-		launched = true
-
-#handles the grapple hook
-func grappleRetracted() -> void:
-	launched = false
-
-#handles the grapple hook
-func handleGrapple(delta : float) -> void:
-	targetDirection = global_position.direction_to(grappledOn)
-	targetDistance = global_position.distance_to(grappledOn)
-	
-	displacement = targetDistance - restLength
-	
-	if displacement > 0:
-		grappleForceMagnitude = stiffness * displacement
-		grappleForce = targetDirection * grappleForceMagnitude
-		
-		velocityDot = velocity.dot(targetDirection)
-		damping = -damp * velocityDot * targetDirection
-		
-		force = grappleForce + damping
-	
-	velocity += force * delta
-
-#handles the grapple hook
-func tapeGrapple(delta) -> void:
-	if Input.is_action_just_pressed("RMB"):
-		grappleLaunched()
-		
-	if Input.is_action_just_released("RMB"):
-		grappleRetracted()
-	
-	if launched:
-		handleGrapple(delta)
-	
-	updateTape()
-
-#this handles the tape
-func updateTape() -> void:
-	if !launched:
-		tape.visible = false
-		return
-	
-	tape.visible = true
-	var distance : float = global_position.distance_to(grappledOn)
-	tape.look_at(grappledOn)
-	tape.scale = Vector3(1, 1, distance)
+#handles grapple hook
+func grappleManager(delta : float) -> void:
+	grappleComponent.tapeGrapple(delta, restLength, stiffness, damp, appliedMult)
+	HUD.grappleIsColliding()
 
 #handles the speedup, slowdown
 func fastForwardRewind() -> void:
@@ -140,9 +87,11 @@ func fastForwardRewind() -> void:
 		match multStatus:
 			0:
 				multStatus = 1
+				camera.fov = 90.0
 				appliedMult = bonusMult
 			1:
 				multStatus = 0
+				camera.fov = 60.0
 				appliedMult = reducedMult
 
 #handles changing the speed back to normal
@@ -152,6 +101,7 @@ func pressPlay() -> void:
 			HUD.startPressPlayCooldown(8.0)
 			HUD.pressPlayProgressBar.visible = true
 			HUD.pressPlayProgressBar.value = 0
+			camera.fov = 75
 			multStatus = 0
 			appliedMult = normalMult
 	if HUD.pressPlayProgressBar.value >= 100.0:
@@ -166,7 +116,8 @@ func speedManager() -> void:
 
 #handles shotgun shooting
 func shotgunShoot() -> void:
-	#handles shotgun shooting
+	if is_on_floor():
+		shotgunJump = true
 	if Input.is_action_just_pressed("LMB"):
 		shotgunKnockback()
 		for i in range(numberOfPellets):
@@ -181,34 +132,16 @@ func shotgunKnockback() -> void:
 	if !is_on_floor() && shotgunJump:
 		shotgunJump = false
 		shotgunShootDirection = pivotX.global_transform.basis.z
-		velocity += shotgunShootDirection * shotgunForce
-		
+		velocity = Vector3(0, 0, 0)
+		velocity += shotgunShootDirection * (shotgunForce * appliedMult)
 
-#Handling player Movement
+#handles player movement
 func characterMove(delta: float) -> void:
-	if is_on_floor():
-		shotgunJump = true
-		decel = 8.0
-		if Input.is_action_just_pressed("Space"):
-			velocity.y = jumpForce * appliedMult
-	else:
-		decel = 0.5
-		velocity.y -= gravity * delta
-	
-	inputDirection = Input.get_vector("A", "D", "W", "S")
-	direction = (pivotY.transform.basis * Vector3(inputDirection.x, 0, inputDirection.y)).normalized()
-	if inputDirection.length() != 0:
-		velocity.x = lerpf(velocity.x, direction.x * (moveSpeed * appliedMult), accel * delta)
-		velocity.z = lerpf(velocity.z, direction.z * (moveSpeed * appliedMult), accel * delta)
-	else:
-		velocity.x = lerpf(velocity.x, 0.0, decel * delta)
-		velocity.z = lerpf(velocity.z, 0.0, decel * delta)
-	
-	move_and_slide()
+	movementComponent.characterMove(delta, moveSpeed * appliedMult, jumpForce * appliedMult)
 
 #runs all the scripts
 func _physics_process(delta: float) -> void:
-	characterMove(delta)
 	shotgunShoot()
-	tapeGrapple(delta)
+	grappleManager(delta)
 	speedManager()
+	characterMove(delta)
