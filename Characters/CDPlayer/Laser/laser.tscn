@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://s7hig4pgpwgc"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_o5bf5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nandd"]
+
+[node name="Laser" type="Area3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_o5bf5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_nandd")

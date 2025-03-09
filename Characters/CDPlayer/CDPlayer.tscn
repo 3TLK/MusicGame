@@ -1,3 +1,47 @@
-[gd_scene format=3 uid="uid://0sksbnjigjy7"]
+[gd_scene load_steps=8 format=3 uid="uid://0sksbnjigjy7"]
 
-[node name="CDPlayer" type="CharacterBody3D"]
+[ext_resource type="Script" path="res://Characters/CDPlayer/CDPlayer.gd" id="1_1hrpf"]
+[ext_resource type="Script" path="res://Components/hitboxComponent.gd" id="2_imp04"]
+[ext_resource type="Script" path="res://Components/PlayerMovementComponent.gd" id="3_5gkfh"]
+[ext_resource type="Script" path="res://Components/healthComponent.gd" id="4_xppop"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hoy58"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2x41x"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c42pw"]
+
+[node name="CDPlayer" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "movementComponent", "pivotY", "pivotX")]
+script = ExtResource("1_1hrpf")
+healthComponent = NodePath("HealthComponent")
+hitboxComponent = NodePath("HitboxComponent")
+movementComponent = NodePath("PlayerMovementComponent")
+pivotY = NodePath("pivotY")
+pivotX = NodePath("pivotY/pivotX")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_hoy58")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_2x41x")
+
+[node name="HitboxComponent" type="Area3D" parent="." node_paths=PackedStringArray("healthComponent")]
+script = ExtResource("2_imp04")
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape3D_c42pw")
+
+[node name="PlayerMovementComponent" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("3_5gkfh")
+parent = NodePath("..")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_xppop")
+
+[node name="pivotY" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476831, 0)
+
+[node name="pivotX" type="Node3D" parent="pivotY"]
+
+[node name="Camera3D" type="Camera3D" parent="pivotY/pivotX"]

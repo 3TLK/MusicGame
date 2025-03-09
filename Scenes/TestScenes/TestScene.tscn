@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://b2dh3afyl6sct"]
 
-[ext_resource type="PackedScene" uid="uid://dsppvd24l5goh" path="res://Characters/Walkman/Walkman.tscn" id="1_wu1mo"]
+[ext_resource type="Script" path="res://Scenes/TestScenes/player_spawn.gd" id="1_7175x"]
 [ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="2_t2vwk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ly2mm"]
@@ -31,6 +31,33 @@ albedo_texture = ExtResource("2_t2vwk")
 
 [node name="Node3D" type="Node3D"]
 
+[node name="player spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.51204, 8.41928)
+script = ExtResource("1_7175x")
+
+[node name="Camera2D" type="Camera2D" parent="player spawn"]
+position = Vector2(-786, -566)
+
+[node name="Container" type="Container" parent="player spawn/Camera2D"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="player spawn/Camera2D/Container"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Walkman" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer"]
+layout_mode = 2
+text = "Walkman"
+
+[node name="CD Player" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer"]
+layout_mode = 2
+text = "CD Player"
+
+[node name="Spawn" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer"]
+layout_mode = 2
+text = "Spawn"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7iamo")
 
@@ -38,9 +65,6 @@ environment = SubResource("Environment_7iamo")
 transform = Transform3D(13.4593, 0, 0, 0, 5, 0, 0, 0, 41.5813, 0.0428238, 0.0626926, 28.3319)
 use_collision = true
 mesh = SubResource("PlaneMesh_aey11")
-
-[node name="Walkman" parent="." instance=ExtResource("1_wu1mo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70542, 0)
 
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, -5, 4.37114e-07, 0, -4.37114e-07, -5, 0, 6.24331, 0)
@@ -76,3 +100,7 @@ skeleton = NodePath("../../StaticBody3D2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("BoxShape3D_io5s1")
+
+[connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/Walkman" to="player spawn" method="walkmanSpawn"]
+[connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/CD Player" to="player spawn" method="cdPlayerSpawn"]
+[connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/Spawn" to="player spawn" method="spawnPlayer"]
