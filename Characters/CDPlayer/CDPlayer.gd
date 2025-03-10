@@ -40,6 +40,7 @@ var laserBullet : RigidBody3D
 
 var cameraLock : int = -1
 
+#handles camera
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion && cameraLock == 1:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -52,19 +53,23 @@ func _unhandled_input(event: InputEvent) -> void:
 			pivotX.rotate_x(-event.relative.y * 0.01)
 			pivotX.rotation.x = clamp(pivotX.rotation.x, deg_to_rad(-60), deg_to_rad(60))
 
+#handles passive
 func passiveFloat(delta : float) -> void:
 	if !is_on_floor():
 		if Input.is_action_pressed("Space"):
 			if velocity.y <= 0:
 				velocity.y += passiveFloatStrength * delta
 
+#handles launch
 func activeFloat() -> void:
 	if Input.is_action_just_pressed("Shift"):
 		velocity = (-pivotX.global_transform.basis.z * activeFloatStrength)
 
+#handles shoot cooldown
 func shootCooldown() -> void:
 	shootCooldownVar = true
 
+#handles shooting
 func shootLaser() -> void:
 	if Input.is_action_pressed("LMB") && shootCooldownVar && !reloading && laserAmmo > 0:
 		laserAmmo -= 1
@@ -77,17 +82,19 @@ func shootLaser() -> void:
 	elif laserAmmo <= 0 && !reloading || Input.is_action_just_pressed("R"):
 		reloading = true
 		reloadTimer.start()
-		
 
+#handles reloading
 func reloadLasers() -> void:
 	laserAmmo = laserAmmoMax
 	reloading = false
 
+#handles moving
 func characterMove(delta: float) -> void:
 	activeFloat()
 	passiveFloat(delta)
 	movementComponent.characterMove(delta, moveSpeed, jumpForce)
 
+#handles function
 func _physics_process(delta: float) -> void:
 	characterMove(delta)
 	shootLaser()

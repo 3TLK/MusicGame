@@ -50,6 +50,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476831, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.768727, -0.550415, -1.06248)
 
 [node name="Camera3D" type="Camera3D" parent="pivotY/pivotX"]
+fov = 90.0
 
 [node name="shootCooldown" type="Timer" parent="."]
 wait_time = 0.05

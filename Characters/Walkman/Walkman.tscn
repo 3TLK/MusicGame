@@ -54,8 +54,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476831, 0)
 
 [node name="pivotX" type="Node3D" parent="pivotY"]
 
-[node name="grappleCast" parent="pivotY/pivotX" node_paths=PackedStringArray("parent") instance=ExtResource("5_3jksh")]
+[node name="grappleCast" parent="pivotY/pivotX" node_paths=PackedStringArray("parent", "HUD") instance=ExtResource("5_3jksh")]
 parent = NodePath("../../..")
+HUD = NodePath("../../../CanvasLayer/WalkmanHUD")
 
 [node name="shotgunCast" type="RayCast3D" parent="pivotY/pivotX"]
 target_position = Vector3(0, 0, -5)

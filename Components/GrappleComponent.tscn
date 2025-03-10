@@ -8,5 +8,5 @@ target_position = Vector3(0, 0, -20)
 script = ExtResource("1_h6fa6")
 
 [node name="Tape" parent="." instance=ExtResource("1_fgy1w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0286037, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.019, 0, 0, -1.06146)
 visible = false

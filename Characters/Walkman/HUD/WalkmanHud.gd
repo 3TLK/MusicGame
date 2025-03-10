@@ -4,19 +4,34 @@ class_name WalkmanHUD
 var pressPlayOnCooldown : bool
 var pressPlayCooldownProgress : float
 
+var grappleOnCooldown : bool
+var grappleProgress : float
+
 @export var grappleColliding : GrappleComponent 
 
 @export_category("Press Play")
 @export var pressPlayProgressBar : TextureProgressBar
 @export var pressPlayCooldownTimer : Timer
 
+@export_category("Grapple")
+@export var grappleProgressbar : TextureProgressBar
+@export var grappleCooldownTimer : Timer
+
 func grappleIsColliding():
 	if grappleColliding.is_colliding() && !grappleColliding.launched:
-		$Polygon2D.color = "yellow"
+		$CrossHair.color = "yellow"
 	elif grappleColliding.launched:
-		$Polygon2D.color = "green"
+		$CrossHair.color = "green"
 	else:
-		$Polygon2D.color = "white"
+		$CrossHair.color = "white"
+
+func startGrappleCooldown(Cooldown : float) -> void:
+	grappleOnCooldown = true
+	grappleCooldownTimer.start(Cooldown)
+
+func endGrappleCooldown() -> void:
+	grappleOnCooldown = false
+	grappleProgressbar.value = 0
 
 func startPressPlayCooldown(Cooldown : float) -> void:
 	pressPlayOnCooldown = true
