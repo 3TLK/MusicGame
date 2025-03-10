@@ -19,6 +19,12 @@ class_name CDPlayer
 @export var jumpForce : float = 5.0
 @export var gravity : float = 9.8
 
+@export_category("Laser Info")
+@export var laserAmmoMax : int = 50
+@export var laserAmmo : int = 50
+@export var reloadTimer : Timer
+@export var laserSpawn : Node3D
+
 var passiveFloatStrength : float = 9.0
 var activeFloatStrength : float = 12.0
 
@@ -27,6 +33,10 @@ var defaultaccel : float = 5.0
 
 var inputDirection : Vector2
 var direction : Vector3
+
+var reloading : bool
+var shootCooldownVar : bool = true
+var laserBullet : RigidBody3D
 
 var cameraLock : int = -1
 
@@ -51,8 +61,26 @@ func activeFloat() -> void:
 	if Input.is_action_just_pressed("Shift"):
 		velocity.y = activeFloatStrength
 
-func shootLaser():
-	pass
+func shootCooldown() -> void:
+	shootCooldownVar = true
+
+func shootLaser() -> void:
+	if Input.is_action_pressed("LMB") && shootCooldownVar && !reloading && laserAmmo > 0:
+		laserAmmo -= 1
+		$shootCooldown.start()
+		shootCooldownVar = false
+		laserBullet = laser.instantiate()
+		add_sibling(laserBullet)
+		laserBullet.rotation = pivotX.global_rotation
+		laserBullet.global_position = laserSpawn.global_position
+	elif laserAmmo <= 0 && !reloading || Input.is_action_just_pressed("R"):
+		reloading = true
+		reloadTimer.start()
+		
+
+func reloadLasers() -> void:
+	laserAmmo = laserAmmoMax
+	reloading = false
 
 func characterMove(delta: float) -> void:
 	activeFloat()
@@ -61,3 +89,4 @@ func characterMove(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	characterMove(delta)
+	shootLaser()

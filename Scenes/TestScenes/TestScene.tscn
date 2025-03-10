@@ -61,12 +61,12 @@ text = "Spawn"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7iamo")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." groups=["ground"]]
 transform = Transform3D(13.4593, 0, 0, 0, 5, 0, 0, 0, 41.5813, 0.0428238, 0.0626926, 28.3319)
 use_collision = true
 mesh = SubResource("PlaneMesh_aey11")
 
-[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="." groups=["ground"]]
 transform = Transform3D(5, 0, 0, 0, -5, 4.37114e-07, 0, -4.37114e-07, -5, 0, 6.24331, 0)
 use_collision = true
 mesh = SubResource("PlaneMesh_aey11")
@@ -81,7 +81,7 @@ mesh = SubResource("BoxMesh_2yix7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_li8sg")
 
-[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+[node name="StaticBody3D3" type="StaticBody3D" parent="." groups=["ground"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.33041, 11.5682, 17.6215)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3"]
@@ -91,7 +91,7 @@ skeleton = NodePath("../../StaticBody3D3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
 shape = SubResource("BoxShape3D_io5s1")
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+[node name="StaticBody3D2" type="StaticBody3D" parent="." groups=["ground"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.60835, 5.78412, 15.4575)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]

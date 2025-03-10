@@ -11,15 +11,18 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c42pw"]
 
-[node name="CDPlayer" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "movementComponent", "pivotY", "pivotX", "reloadTimer", "laserSpawn")]
+[node name="CDPlayer" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "movementComponent", "pivotY", "pivotX")]
 script = ExtResource("1_1hrpf")
 healthComponent = NodePath("HealthComponent")
 hitboxComponent = NodePath("HitboxComponent")
 movementComponent = NodePath("PlayerMovementComponent")
 pivotY = NodePath("pivotY")
 pivotX = NodePath("pivotY/pivotX")
-reloadTimer = NodePath("reloadTimer")
-laserSpawn = NodePath("pivotY/pivotX/laserSpawn")
+moveSpeed = null
+accel = null
+decel = null
+jumpForce = null
+gravity = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_hoy58")
@@ -46,18 +49,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.476831, 0)
 
 [node name="pivotX" type="Node3D" parent="pivotY"]
 
-[node name="laserSpawn" type="Node3D" parent="pivotY/pivotX"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.768727, -0.550415, -1.06248)
-
 [node name="Camera3D" type="Camera3D" parent="pivotY/pivotX"]
 
 [node name="shootCooldown" type="Timer" parent="."]
-wait_time = 0.05
-one_shot = true
-
-[node name="reloadTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.1
 one_shot = true
 
 [connection signal="timeout" from="shootCooldown" to="." method="shootCooldown"]
-[connection signal="timeout" from="reloadTimer" to="." method="reloadLasers"]

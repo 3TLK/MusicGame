@@ -132,7 +132,7 @@ func shotgunKnockback() -> void:
 	if !is_on_floor() && shotgunJump:
 		shotgunJump = false
 		shotgunShootDirection = pivotX.global_transform.basis.z
-		velocity = Vector3(0, 0, 0)
+		velocity = Vector3(velocity.x, 0, velocity.z)
 		velocity += shotgunShootDirection * (shotgunForce * appliedMult)
 
 #handles player movement

@@ -1,14 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://s7hig4pgpwgc"]
+[gd_scene load_steps=6 format=3 uid="uid://s7hig4pgpwgc"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_o5bf5"]
+[ext_resource type="Script" path="res://Characters/CDPlayer/Laser/Laser.gd" id="1_karv8"]
+[ext_resource type="Script" path="res://Components/hitboxComponent.gd" id="2_bq3ys"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ibobm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nandd"]
 
-[node name="Laser" type="Area3D"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_26ey0"]
+
+[node name="Laser" type="RigidBody3D"]
+gravity_scale = 0.0
+script = ExtResource("1_karv8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_o5bf5")
+transform = Transform3D(5.73206e-16, -1.31134e-08, 0.3, -0.3, -1.31134e-08, 0, 1.31134e-08, -0.3, -1.31134e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_ibobm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 shape = SubResource("SphereShape3D_nandd")
+disabled = true
+
+[node name="HitboxComponent" type="Area3D" parent="."]
+script = ExtResource("2_bq3ys")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+transform = Transform3D(7.64274e-16, -1.74846e-08, -0.4, -0.4, -1.74846e-08, 0, -1.74846e-08, 0.4, -1.74846e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_26ey0")
+
+[node name="decay" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="body_entered" from="HitboxComponent" to="." method="_on_hitbox_component_body_entered"]
+[connection signal="timeout" from="decay" to="." method="laserDecay"]
