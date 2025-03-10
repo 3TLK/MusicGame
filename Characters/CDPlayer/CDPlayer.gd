@@ -25,8 +25,8 @@ class_name CDPlayer
 @export var reloadTimer : Timer
 @export var laserSpawn : Node3D
 
-var passiveFloatStrength : float = 9.0
-var activeFloatStrength : float = 12.0
+var passiveFloatStrength : float = 9.5
+var activeFloatStrength : Vector3 = Vector3(28.0, 18.0, 28.0)
 
 var defaultdecel : float = 8.0
 var defaultaccel : float = 5.0
@@ -55,11 +55,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func passiveFloat(delta : float) -> void:
 	if !is_on_floor():
 		if Input.is_action_pressed("Space"):
-			velocity.y += passiveFloatStrength * delta
+			if velocity.y <= 0:
+				velocity.y += passiveFloatStrength * delta
 
 func activeFloat() -> void:
 	if Input.is_action_just_pressed("Shift"):
-		velocity.y = activeFloatStrength
+		velocity = (-pivotX.global_transform.basis.z * activeFloatStrength)
 
 func shootCooldown() -> void:
 	shootCooldownVar = true

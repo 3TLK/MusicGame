@@ -87,11 +87,11 @@ func fastForwardRewind() -> void:
 		match multStatus:
 			0:
 				multStatus = 1
-				camera.fov = 90.0
+				camera.fov = 105.0
 				appliedMult = bonusMult
 			1:
 				multStatus = 0
-				camera.fov = 60.0
+				camera.fov = 75.0
 				appliedMult = reducedMult
 
 #handles changing the speed back to normal
@@ -101,7 +101,7 @@ func pressPlay() -> void:
 			HUD.startPressPlayCooldown(8.0)
 			HUD.pressPlayProgressBar.visible = true
 			HUD.pressPlayProgressBar.value = 0
-			camera.fov = 75
+			camera.fov = 90
 			multStatus = 0
 			appliedMult = normalMult
 	if HUD.pressPlayProgressBar.value >= 100.0:

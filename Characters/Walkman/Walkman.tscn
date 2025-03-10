@@ -61,3 +61,4 @@ parent = NodePath("../../..")
 target_position = Vector3(0, 0, -5)
 
 [node name="Camera3D" type="Camera3D" parent="pivotY/pivotX"]
+fov = 90.0

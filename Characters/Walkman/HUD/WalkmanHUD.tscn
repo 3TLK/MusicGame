@@ -21,19 +21,19 @@ pressPlayProgressBar = NodePath("PressPlay2")
 pressPlayCooldownTimer = NodePath("PressPlay3")
 
 [node name="PressPlay" type="Sprite2D" parent="."]
-position = Vector2(1063, 582)
+position = Vector2(1208, 655)
 texture = ExtResource("1_6lcq5")
 
 [node name="FastForwardandRewind" type="Sprite2D" parent="."]
-position = Vector2(928, 585)
+position = Vector2(1073, 658)
 texture = ExtResource("2_26j1d")
 
 [node name="PressPlay2" type="TextureProgressBar" parent="."]
 layout_mode = 0
-offset_left = 1013.0
-offset_top = 531.0
-offset_right = 1141.0
-offset_bottom = 659.0
+offset_left = 1158.0
+offset_top = 604.0
+offset_right = 1286.0
+offset_bottom = 732.0
 scale = Vector2(0.7883, 0.780074)
 texture_progress = ExtResource("3_ldnmf")
 
@@ -43,55 +43,55 @@ one_shot = true
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 898.0
-offset_top = 491.0
-offset_right = 962.0
-offset_bottom = 531.0
+offset_left = 1043.0
+offset_top = 564.0
+offset_right = 1107.0
+offset_bottom = 604.0
 theme_override_font_sizes/font_size = 29
 text = "Shift
 "
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
-offset_left = 1050.0
-offset_top = 492.0
-offset_right = 1114.0
-offset_bottom = 532.0
+offset_left = 1195.0
+offset_top = 565.0
+offset_right = 1259.0
+offset_bottom = 605.0
 theme_override_font_sizes/font_size = 29
 text = "R
 "
 
 [node name="Label3" type="Label" parent="."]
 layout_mode = 0
-offset_left = 764.0
-offset_top = 494.0
-offset_right = 828.0
-offset_bottom = 534.0
+offset_left = 909.0
+offset_top = 567.0
+offset_right = 973.0
+offset_bottom = 607.0
 theme_override_font_sizes/font_size = 29
 text = "RMB
 "
 
 [node name="Label4" type="Label" parent="."]
 layout_mode = 0
-offset_left = 626.0
-offset_top = 489.0
-offset_right = 690.0
-offset_bottom = 529.0
+offset_left = 771.0
+offset_top = 562.0
+offset_right = 835.0
+offset_bottom = 602.0
 theme_override_font_sizes/font_size = 29
 text = "LMB
 "
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(572, 320)
+position = Vector2(636, 356)
 color = Color(0.784314, 0.784314, 0, 1)
 polygon = PackedVector2Array(0, 0, 8, 0, 8, 8, 0, 8)
 
 [node name="Grapple" type="Sprite2D" parent="."]
-position = Vector2(796, 583)
+position = Vector2(941, 656)
 texture = ExtResource("5_3bxt3")
 
 [node name="Shoot" type="Sprite2D" parent="."]
-position = Vector2(657, 583)
+position = Vector2(802, 656)
 texture = ExtResource("6_57g1j")
 
 [connection signal="timeout" from="PressPlay3" to="." method="endPressPlayCooldown"]
