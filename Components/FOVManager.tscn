@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhtdt05f7ehps"]
+
+[ext_resource type="Script" path="res://Components/FOVManager.gd" id="1_n4j65"]
+
+[node name="FOVManager" type="Node"]
+script = ExtResource("1_n4j65")

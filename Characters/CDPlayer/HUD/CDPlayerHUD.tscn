@@ -9,9 +9,19 @@ script = ExtResource("1_lxxt0")
 ammoLabel = NodePath("ammoDisplay")
 
 [node name="ammoDisplay" type="Label" parent="."]
+layout_mode = 0
 offset_left = 1208.0
 offset_top = 652.0
 offset_right = 1247.0
 offset_bottom = 699.0
 theme_override_font_sizes/font_size = 34
 text = "50"
+
+[node name="currentCharacter" type="Label" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 653.0
+offset_right = 321.0
+offset_bottom = 700.0
+theme_override_font_sizes/font_size = 34
+text = "Current: CD Player"

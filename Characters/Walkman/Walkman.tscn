@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dsppvd24l5goh"]
+[gd_scene load_steps=11 format=3 uid="uid://dsppvd24l5goh"]
 
 [ext_resource type="Script" path="res://Characters/Walkman/Walkman.gd" id="1_lwat0"]
 [ext_resource type="PackedScene" uid="uid://btfwotlbgo786" path="res://Components/healthComponent.tscn" id="2_rs7qr"]
+[ext_resource type="PackedScene" uid="uid://dhtdt05f7ehps" path="res://Components/FOVManager.tscn" id="3_8t8v5"]
 [ext_resource type="PackedScene" uid="uid://q6f8umok0ydy" path="res://Components/PlayerMovementComponent.tscn" id="3_b17df"]
 [ext_resource type="PackedScene" uid="uid://dj1dmlygkg1r1" path="res://Components/hitboxComponent.tscn" id="3_gesee"]
 [ext_resource type="PackedScene" uid="uid://cqwcfr1ltq6d5" path="res://Components/GrappleComponent.tscn" id="5_3jksh"]
@@ -13,12 +14,13 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b7xrx"]
 
-[node name="Walkman" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "grappleComponent", "movementComponent", "HUD", "pivotY", "pivotX", "camera", "shotgunCast")]
+[node name="Walkman" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "grappleComponent", "movementComponent", "fovComponent", "HUD", "pivotY", "pivotX", "camera", "shotgunCast")]
 script = ExtResource("1_lwat0")
 healthComponent = NodePath("healthComponent")
 hitboxComponent = NodePath("hitboxComponent")
 grappleComponent = NodePath("pivotY/pivotX/grappleCast")
 movementComponent = NodePath("PlayerMovement")
+fovComponent = NodePath("FOVManager")
 HUD = NodePath("CanvasLayer/WalkmanHUD")
 pivotY = NodePath("pivotY")
 pivotX = NodePath("pivotY/pivotX")
@@ -37,6 +39,9 @@ grappleColliding = NodePath("../../pivotY/pivotX/grappleCast")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_il0uy")
+
+[node name="FOVManager" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_8t8v5")]
+camera = NodePath("../pivotY/pivotX/Camera3D")
 
 [node name="PlayerMovement" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("3_b17df")]
 parent = NodePath("..")

@@ -6,6 +6,7 @@ class_name Walkman
 @export var hitboxComponent : HitboxComponent
 @export var grappleComponent : GrappleComponent
 @export var movementComponent : PlayerMovementComponent
+@export var fovComponent : FOVManager
 
 @export_category("HUD")
 @export var HUD : WalkmanHUD
@@ -14,6 +15,9 @@ class_name Walkman
 @export var pivotY : Node3D
 @export var pivotX : Node3D
 @export var camera : Camera3D
+@export var fovNorm : float = 90
+@export var fovHigh : float = 105
+@export var fovLow : float = 75
 
 @export_category("Character Movement")
 @export var moveSpeed : float = 7
@@ -87,11 +91,11 @@ func fastForwardRewind() -> void:
 		match multStatus:
 			0:
 				multStatus = 1
-				camera.fov = 105.0
+				fovComponent.targetFOV = 105
 				appliedMult = bonusMult
 			1:
 				multStatus = 0
-				camera.fov = 75.0
+				fovComponent.targetFOV = 75
 				appliedMult = reducedMult
 
 #handles changing the speed back to normal
@@ -101,7 +105,7 @@ func pressPlay() -> void:
 			HUD.startPressPlayCooldown(8.0)
 			HUD.pressPlayProgressBar.visible = true
 			HUD.pressPlayProgressBar.value = 0
-			camera.fov = 90
+			fovComponent.targetFOV = 90
 			multStatus = 0
 			appliedMult = normalMult
 	if HUD.pressPlayProgressBar.value >= 100.0:
@@ -110,9 +114,10 @@ func pressPlay() -> void:
 		HUD.pressPlayProgressBar.value = ((8.1 - HUD.pressPlayCooldownTimer.time_left) / 8.0) * 100
 
 #handles all speedup functions
-func speedManager() -> void:
+func speedManager(delta : float) -> void:
 	fastForwardRewind()
 	pressPlay()
+	fovComponent.changeFOV(delta)
 
 #handles shotgun shooting
 func shotgunShoot() -> void:
@@ -143,5 +148,5 @@ func characterMove(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	shotgunShoot()
 	grappleManager(delta)
-	speedManager()
+	speedManager(delta)
 	characterMove(delta)
