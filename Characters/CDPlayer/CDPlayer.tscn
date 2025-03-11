@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://0sksbnjigjy7"]
 
 [ext_resource type="Script" path="res://Characters/CDPlayer/CDPlayer.gd" id="1_1hrpf"]
-[ext_resource type="Script" path="res://Components/hitboxComponent.gd" id="2_imp04"]
+[ext_resource type="Script" path="res://Components/PlayerComponents/hitboxComponent.gd" id="2_imp04"]
 [ext_resource type="PackedScene" uid="uid://bv0fl6q2c3euq" path="res://Characters/CDPlayer/HUD/CDPlayerHUD.tscn" id="2_ovwcq"]
-[ext_resource type="Script" path="res://Components/PlayerMovementComponent.gd" id="3_5gkfh"]
-[ext_resource type="Script" path="res://Components/healthComponent.gd" id="4_xppop"]
+[ext_resource type="Script" path="res://Components/PlayerComponents/PlayerMovementComponent.gd" id="3_5gkfh"]
+[ext_resource type="Script" path="res://Components/PlayerComponents/healthComponent.gd" id="4_xppop"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hoy58"]
 
