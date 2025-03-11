@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://0sksbnjigjy7"]
+[gd_scene load_steps=9 format=3 uid="uid://0sksbnjigjy7"]
 
 [ext_resource type="Script" path="res://Characters/CDPlayer/CDPlayer.gd" id="1_1hrpf"]
 [ext_resource type="Script" path="res://Components/hitboxComponent.gd" id="2_imp04"]
+[ext_resource type="PackedScene" uid="uid://bv0fl6q2c3euq" path="res://Characters/CDPlayer/HUD/CDPlayerHUD.tscn" id="2_ovwcq"]
 [ext_resource type="Script" path="res://Components/PlayerMovementComponent.gd" id="3_5gkfh"]
 [ext_resource type="Script" path="res://Components/healthComponent.gd" id="4_xppop"]
 
@@ -11,15 +12,22 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c42pw"]
 
-[node name="CDPlayer" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "movementComponent", "pivotY", "pivotX", "reloadTimer", "laserSpawn")]
+[node name="CDPlayer" type="CharacterBody3D" node_paths=PackedStringArray("healthComponent", "hitboxComponent", "movementComponent", "HUD", "pivotY", "pivotX", "sawDuration", "reloadTimer", "reloadCooldown", "laserSpawn")]
 script = ExtResource("1_1hrpf")
 healthComponent = NodePath("HealthComponent")
 hitboxComponent = NodePath("HitboxComponent")
 movementComponent = NodePath("PlayerMovementComponent")
+HUD = NodePath("HUD/CDPlayerHUD")
 pivotY = NodePath("pivotY")
 pivotX = NodePath("pivotY/pivotX")
+sawDuration = NodePath("sawDuration")
 reloadTimer = NodePath("reloadTimer")
+reloadCooldown = NodePath("reloadCooldown")
 laserSpawn = NodePath("pivotY/pivotX/laserSpawn")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="CDPlayerHUD" parent="HUD" instance=ExtResource("2_ovwcq")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_hoy58")
@@ -56,9 +64,18 @@ fov = 90.0
 wait_time = 0.05
 one_shot = true
 
+[node name="reloadCooldown" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [node name="reloadTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="sawDuration" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="shootCooldown" to="." method="shootCooldown"]
+[connection signal="timeout" from="reloadCooldown" to="." method="startReload"]
 [connection signal="timeout" from="reloadTimer" to="." method="reloadLasers"]

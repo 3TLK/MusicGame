@@ -7,6 +7,7 @@ class_name CDPlayer
 @export var healthComponent : HealthComponent
 @export var hitboxComponent : HitboxComponent
 @export var movementComponent : PlayerMovementComponent
+@export var HUD : CDPlayerHUD
 
 @export_category("Camera Pivots")
 @export var pivotY : Node3D
@@ -19,10 +20,14 @@ class_name CDPlayer
 @export var jumpForce : float = 5.0
 @export var gravity : float = 9.8
 
+@export_category("Saw")
+@export var sawDuration : Timer
+
 @export_category("Laser Info")
 @export var laserAmmoMax : int = 50
 @export var laserAmmo : int = 50
 @export var reloadTimer : Timer
+@export var reloadCooldown : Timer
 @export var laserSpawn : Node3D
 
 var passiveFloatStrength : float = 9.5
@@ -72,21 +77,32 @@ func shootCooldown() -> void:
 #handles shooting
 func shootLaser() -> void:
 	if Input.is_action_pressed("LMB") && shootCooldownVar && !reloading && laserAmmo > 0:
+		reloadCooldown.start()
 		laserAmmo -= 1
+		HUD.updateAmmoDisplay(laserAmmo)
 		$shootCooldown.start()
 		shootCooldownVar = false
 		laserBullet = laser.instantiate()
 		add_sibling(laserBullet)
 		laserBullet.rotation = pivotX.global_rotation
 		laserBullet.global_position = laserSpawn.global_position
-	elif laserAmmo <= 0 && !reloading || Input.is_action_just_pressed("R"):
-		reloading = true
-		reloadTimer.start()
+
+func startReload():
+	reloading = true
+	reloadTimer.start()
+	
 
 #handles reloading
 func reloadLasers() -> void:
 	laserAmmo = laserAmmoMax
+	HUD.updateAmmoDisplay(laserAmmo)
 	reloading = false
+
+func saw():
+	if Input.is_action_just_pressed("R"):
+		sawDuration.start()
+	if sawDuration.time_left > 0:
+		velocity = -pivotX.global_transform.basis.z * 15
 
 #handles moving
 func characterMove(delta: float) -> void:
@@ -97,4 +113,5 @@ func characterMove(delta: float) -> void:
 #handles function
 func _physics_process(delta: float) -> void:
 	characterMove(delta)
+	saw()
 	shootLaser()

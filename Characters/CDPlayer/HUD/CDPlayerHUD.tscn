@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv0fl6q2c3euq"]
+
+[ext_resource type="Script" path="res://Characters/CDPlayer/HUD/CDPlayerHUD.gd" id="1_lxxt0"]
+
+[node name="CDPlayerHUD" type="Control" node_paths=PackedStringArray("ammoLabel")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_lxxt0")
+ammoLabel = NodePath("ammoDisplay")
+
+[node name="ammoDisplay" type="Label" parent="."]
+offset_left = 1208.0
+offset_top = 652.0
+offset_right = 1247.0
+offset_bottom = 699.0
+theme_override_font_sizes/font_size = 34
+text = "50"
