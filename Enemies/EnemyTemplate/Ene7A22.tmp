@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Enemies/EnemyTemplate/EnemyTemplate.gd" id="1_4prwc"]
 [ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="1_7u0sd"]
-[ext_resource type="PackedScene" uid="uid://dptckm62miamw" path="res://Components/EnemyComponents/EnemyBehavior.tscn" id="2_lyrq1"]
+[ext_resource type="PackedScene" uid="uid://dptckm62miamw" path="res://Components/EnemyComponents/EnemyMove.tscn" id="2_lyrq1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e64ce"]
 
@@ -15,11 +15,10 @@ albedo_texture = ExtResource("1_7u0sd")
 lightmap_size_hint = Vector2i(14, 21)
 material = SubResource("StandardMaterial3D_vlcbr")
 
-[node name="EnemyTemplate" type="CharacterBody3D" node_paths=PackedStringArray("enemyBehavior", "pivotY")]
+[node name="EnemyTemplate" type="CharacterBody3D" node_paths=PackedStringArray("enemyMove", "pivotY")]
 script = ExtResource("1_4prwc")
-enemyBehavior = NodePath("EnemyMove")
+enemyMove = NodePath("EnemyMove")
 pivotY = NodePath("pivotY")
-selfBehavior = "Melee"
 
 [node name="EnemyMove" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_lyrq1")]
 parent = NodePath("..")

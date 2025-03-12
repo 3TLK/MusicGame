@@ -17,6 +17,7 @@ func cdPlayerSpawn() -> void:
 func enemySpawn() -> void:
 	spawnEnemy = true
 	currentEnemy = EnemyTemplatePicked.instantiate()
+	currentEnemy.selfBehavior = $Camera2D/Container/HBoxContainer/VBoxContainer/EnemyType.text
 
 func spawnPlayer() -> void:
 	if spawnEnemy:

@@ -7,7 +7,6 @@ var inputDirection : Vector2
 var direction : Vector3
 
 func characterMove(delta : float, moveSpeed : float, jumpForce : float) -> void:
-	global.playerPosition = parent.global_position
 	if parent.is_on_floor():
 		parent.decel = parent.defaultdecel
 		if Input.is_action_just_pressed("Space"):
@@ -25,4 +24,5 @@ func characterMove(delta : float, moveSpeed : float, jumpForce : float) -> void:
 		parent.velocity.x = lerpf(parent.velocity.x, 0.0, parent.decel * delta)
 		parent.velocity.z = lerpf(parent.velocity.z, 0.0, parent.decel * delta)
 	
+	global.playerPosition = parent.global_position
 	parent.move_and_slide()

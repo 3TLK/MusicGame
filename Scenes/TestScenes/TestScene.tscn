@@ -56,14 +56,9 @@ layout_mode = 2
 layout_mode = 2
 text = "Spawn Enemy"
 
-[node name="EnemyType" type="CheckButton" parent="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer"]
+[node name="EnemyType" type="LineEdit" parent="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Enemy Type"
-
-[node name="Label" type="Label" parent="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Right = walk
-Left = shoot"
+placeholder_text = "Melee, Range"
 
 [node name="Walkman" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer"]
 layout_mode = 2

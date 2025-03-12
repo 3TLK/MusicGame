@@ -15,11 +15,10 @@ albedo_texture = ExtResource("1_7u0sd")
 lightmap_size_hint = Vector2i(14, 21)
 material = SubResource("StandardMaterial3D_vlcbr")
 
-[node name="EnemyTemplate" type="CharacterBody3D" node_paths=PackedStringArray("enemyBehavior", "pivotY")]
+[node name="EnemyTemplate" type="CharacterBody3D" node_paths=PackedStringArray("enemyMove", "pivotY")]
 script = ExtResource("1_4prwc")
-enemyBehavior = NodePath("EnemyMove")
+enemyMove = NodePath("EnemyMove")
 pivotY = NodePath("pivotY")
-selfBehavior = "Melee"
 
 [node name="EnemyMove" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_lyrq1")]
 parent = NodePath("..")

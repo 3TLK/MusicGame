@@ -2,7 +2,7 @@ extends CharacterBody3D
 class_name EnemyTemplate
 
 @export_category("Components")
-@export var enemyMove : EnemyMoveComponent
+@export var enemyBehavior : EnemyBehaviorComponent
 
 @export_category("Enemy Pivots")
 @export var pivotY : Node3D
@@ -13,8 +13,12 @@ class_name EnemyTemplate
 @export var accel : float = 5
 @export var decel : float = 8
 
-var defaultaccel = 5
-var defaultdecel = 8
+@export_category("EnemyType")
+@export var selfBehavior : String
+
+
+var defaultaccel : float = 5
+var defaultdecel : float = 8
 
 func _physics_process(delta: float) -> void:
-	enemyMove.characterMove(delta, moveSpeed, 10.0)
+	enemyBehavior.enemyBehavior(selfBehavior, delta, moveSpeed, 10.0)

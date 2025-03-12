@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dptckm62miamw"]
+
+[ext_resource type="Script" path="res://Components/EnemyComponents/EnemyBehaviorComponent.gd" id="1_1qcy1"]
+
+[node name="EnemyMove" type="Node" node_paths=PackedStringArray("shootCooldown")]
+script = ExtResource("1_1qcy1")
+shootCooldown = NodePath("shootCooldown")
+
+[node name="shootCooldown" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="shootCooldown" to="." method="shootReady"]
