@@ -35,6 +35,9 @@ albedo_texture = ExtResource("2_t2vwk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.51204, 8.41928)
 script = ExtResource("1_7175x")
 
+[node name="enemy spawn" type="Node3D" parent="player spawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.98667, 8.49774)
+
 [node name="Camera2D" type="Camera2D" parent="player spawn"]
 position = Vector2(-786, -566)
 
@@ -45,6 +48,22 @@ offset_bottom = 40.0
 [node name="HBoxContainer" type="HBoxContainer" parent="player spawn/Camera2D/Container"]
 layout_mode = 2
 theme_override_constants/separation = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="player spawn/Camera2D/Container/HBoxContainer"]
+layout_mode = 2
+
+[node name="Enemy" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spawn Enemy"
+
+[node name="EnemyType" type="CheckButton" parent="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enemy Type"
+
+[node name="Label" type="Label" parent="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Right = walk
+Left = shoot"
 
 [node name="Walkman" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer"]
 layout_mode = 2
@@ -101,6 +120,7 @@ skeleton = NodePath("../../StaticBody3D2")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("BoxShape3D_io5s1")
 
+[connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer/Enemy" to="player spawn" method="enemySpawn"]
 [connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/Walkman" to="player spawn" method="walkmanSpawn"]
 [connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/CD Player" to="player spawn" method="cdPlayerSpawn"]
 [connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/Spawn" to="player spawn" method="spawnPlayer"]
