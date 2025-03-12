@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-@export var speed : float = 5.0
+@export var speed : float = 10.0
 
 func bulletDecay():
 	queue_free()
