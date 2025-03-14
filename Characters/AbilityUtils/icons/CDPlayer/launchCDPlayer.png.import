@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jjptqr32rh6r"
-path="res://.godot/imported/WalkmanHUD.png-89ad61aec5501f8ef9e91ef0e9663a0f.ctex"
+uid="uid://b0qhim3jpm1nq"
+path="res://.godot/imported/launchCDPlayer.png-64a6bcb70aeecb480deb3912d45ffc34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/AbilityUtils/icons/WalkmanHUD.png"
-dest_files=["res://.godot/imported/WalkmanHUD.png-89ad61aec5501f8ef9e91ef0e9663a0f.ctex"]
+source_file="res://Characters/AbilityUtils/icons/CDPlayer/launchCDPlayer.png"
+dest_files=["res://.godot/imported/launchCDPlayer.png-64a6bcb70aeecb480deb3912d45ffc34.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rak5o1leqyug"
-path="res://.godot/imported/pressPlay.png-ec08da486e08dd171715b2f23e3071f7.ctex"
+uid="uid://buqjc76fwsv07"
+path="res://.godot/imported/grapple.png-249d1defa111a9132be4cd593e4fadaa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/AbilityUtils/icons/pressPlay.png"
-dest_files=["res://.godot/imported/pressPlay.png-ec08da486e08dd171715b2f23e3071f7.ctex"]
+source_file="res://Characters/AbilityUtils/icons/Walkman/grapple.png"
+dest_files=["res://.godot/imported/grapple.png-249d1defa111a9132be4cd593e4fadaa.ctex"]
 
 [params]
 

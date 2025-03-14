@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fgj0cgkn7u3y"
-path="res://.godot/imported/fastForwardandRewind.png-2db3b1986512558eae8d66feef4e3b9f.ctex"
+uid="uid://b0nj6p86xmt4q"
+path="res://.godot/imported/shotCDPlayer.png-d20e87d2a8d2ba9bad86f387c01ba2bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/AbilityUtils/icons/fastForwardandRewind.png"
-dest_files=["res://.godot/imported/fastForwardandRewind.png-2db3b1986512558eae8d66feef4e3b9f.ctex"]
+source_file="res://Characters/AbilityUtils/icons/CDPlayer/shotCDPlayer.png"
+dest_files=["res://.godot/imported/shotCDPlayer.png-d20e87d2a8d2ba9bad86f387c01ba2bd.ctex"]
 
 [params]
 

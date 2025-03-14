@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buqjc76fwsv07"
-path="res://.godot/imported/grapple.png-3a372432d9048be3f741870ba8dbcaf5.ctex"
+uid="uid://cbsgo387obgbf"
+path="res://.godot/imported/sawCDPlayer.png-19e5d4049e76bf7f6d1030d9c787fe91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/AbilityUtils/icons/grapple.png"
-dest_files=["res://.godot/imported/grapple.png-3a372432d9048be3f741870ba8dbcaf5.ctex"]
+source_file="res://Characters/AbilityUtils/icons/CDPlayer/sawCDPlayer.png"
+dest_files=["res://.godot/imported/sawCDPlayer.png-19e5d4049e76bf7f6d1030d9c787fe91.ctex"]
 
 [params]
 

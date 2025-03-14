@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cabxh13xfs5f4"
-path="res://.godot/imported/shotgunshoot.png-fb7763a1cf7b03417aa7c597cba199e1.ctex"
+uid="uid://fgj0cgkn7u3y"
+path="res://.godot/imported/fastForwardandRewind.png-be53cecf97fe2579629a053b93bb7cc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/AbilityUtils/icons/shotgunshoot.png"
-dest_files=["res://.godot/imported/shotgunshoot.png-fb7763a1cf7b03417aa7c597cba199e1.ctex"]
+source_file="res://Characters/AbilityUtils/icons/Walkman/fastForwardandRewind.png"
+dest_files=["res://.godot/imported/fastForwardandRewind.png-be53cecf97fe2579629a053b93bb7cc7.ctex"]
 
 [params]
 
