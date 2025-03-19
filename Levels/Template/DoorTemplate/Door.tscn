@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu0gxjcms1h8i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ls2c0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_di35l"]
+
+[node name="Door" type="Node3D"]
+
+[node name="Door" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -15.5)
+
+[node name="TopShape" type="CollisionShape3D" parent="Door"]
+transform = Transform3D(30, 0, 0, 0, 7, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("BoxShape3D_ls2c0")
+
+[node name="TopCol" type="MeshInstance3D" parent="Door"]
+transform = Transform3D(30, 0, 0, 0, 7, 0, 0, 0, 1, 0, 4, 0)
+mesh = SubResource("BoxMesh_di35l")
+
+[node name="LeftShape" type="CollisionShape3D" parent="Door"]
+transform = Transform3D(10.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -9.75, -3.25, 0)
+shape = SubResource("BoxShape3D_ls2c0")
+
+[node name="LeftCol" type="MeshInstance3D" parent="Door"]
+transform = Transform3D(10.5, 0, 0, 0, 7.5, 0, 0, 0, 1, -9.75, -3.25, 0)
+mesh = SubResource("BoxMesh_di35l")
+
+[node name="RightShape" type="CollisionShape3D" parent="Door"]
+transform = Transform3D(10.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 9.75, -3.25, 0)
+shape = SubResource("BoxShape3D_ls2c0")
+
+[node name="RightCol" type="MeshInstance3D" parent="Door"]
+transform = Transform3D(10.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 9.75, -3.25, 0)
+mesh = SubResource("BoxMesh_di35l")
+skeleton = NodePath("../LeftCol")

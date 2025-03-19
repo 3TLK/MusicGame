@@ -1,7 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2dh3afyl6sct"]
+[gd_scene load_steps=14 format=3 uid="uid://b2dh3afyl6sct"]
 
+[ext_resource type="PackedScene" uid="uid://q486oa1mig7u" path="res://Levels/Template/RoomTemplate/Room.tscn" id="1_0513k"]
 [ext_resource type="Script" path="res://Scenes/TestScenes/player_spawn.gd" id="1_7175x"]
 [ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="2_t2vwk"]
+[ext_resource type="PackedScene" uid="uid://00q170cq02e1" path="res://Levels/Template/WallTemplate/Wall.tscn" id="2_vbe2h"]
+[ext_resource type="PackedScene" uid="uid://cu0gxjcms1h8i" path="res://Levels/Template/DoorTemplate/Door.tscn" id="3_bpqem"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ly2mm"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,8 +19,6 @@ sky = SubResource("Sky_182rs")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_aey11"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vuolh"]
 albedo_texture = ExtResource("2_t2vwk")
 
@@ -31,8 +32,21 @@ albedo_texture = ExtResource("2_t2vwk")
 
 [node name="Node3D" type="Node3D"]
 
+[node name="Room" parent="." instance=ExtResource("1_0513k")]
+
+[node name="Wall" parent="." instance=ExtResource("2_vbe2h")]
+
+[node name="Wall2" parent="." instance=ExtResource("2_vbe2h")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Door" parent="." instance=ExtResource("3_bpqem")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Door2" parent="." instance=ExtResource("3_bpqem")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
 [node name="player spawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.51204, 8.41928)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.51204, -0.464895)
 script = ExtResource("1_7175x")
 
 [node name="enemy spawn" type="Node3D" parent="player spawn"]
@@ -74,16 +88,6 @@ text = "Spawn"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7iamo")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="." groups=["ground"]]
-transform = Transform3D(13.4593, 0, 0, 0, 5, 0, 0, 0, 41.5813, 0.0428238, 0.0626926, 28.3319)
-use_collision = true
-mesh = SubResource("PlaneMesh_aey11")
-
-[node name="CSGMesh3D2" type="CSGMesh3D" parent="." groups=["ground"]]
-transform = Transform3D(5, 0, 0, 0, -5, 4.37114e-07, 0, -4.37114e-07, -5, 0, 6.24331, 0)
-use_collision = true
-mesh = SubResource("PlaneMesh_aey11")
 
 [node name="Area3D" type="Area3D" parent="." groups=["attack"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15112, -2.54403)
