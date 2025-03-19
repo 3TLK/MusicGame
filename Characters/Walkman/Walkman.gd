@@ -1,46 +1,53 @@
 extends CharacterBody3D
 class_name Walkman
 
-@export_category("Components")
+@export_subgroup("Components")
 @export var healthComponent : HealthComponent
 @export var hitboxComponent : HitboxComponent
 @export var grappleComponent : GrappleComponent
 @export var movementComponent : PlayerMovementComponent
 @export var fovComponent : FOVManager
-
-@export_category("HUD")
 @export var HUD : WalkmanHUD
 
-@export_category("Camera Pivots")
+@export_category("Camera")
+@export var camera : Camera3D
+@export_subgroup("Pivots")
 @export var pivotY : Node3D
 @export var pivotX : Node3D
-@export var camera : Camera3D
+@export_subgroup("FOV")
 @export var fovNorm : float = 90
 @export var fovHigh : float = 105
 @export var fovLow : float = 75
 
 @export_category("Character Movement")
+@export_subgroup("Movement")
 @export var moveSpeed : float = 7
 @export var accel : float = 5
 @export var decel : float = 8
+@export_subgroup("Jumping")
 @export var jumpForce : float = 5
 @export var gravity : float = 9.8
 
 @export_category("Weapon Details")
+@export var shotgunCast : RayCast3D
+@export_subgroup("Bullet Info")
 @export var spreadRange : int = 3
 @export var numberOfPellets : int = 5
 @export var pelletDamage : int = 15
+@export_subgroup("Knockback")
 @export var shotgunForce : int = 10
-@export var shotgunCast : RayCast3D
 
 @export_category("Grapple Details")
+@export_subgroup("Grapple Details")
 @export var restLength : float = 1.0
 @export var stiffness : float = 5.0
 @export var damp : float = 1.0
 
-@export_category("FastForward/Rewind & Press Play")
+@export_category("FastForward & Rewind & Press Play")
+@export_subgroup("FastForward & Rewind")
 @export var bonusMult : float = 1.5
 @export var reducedMult : float = 0.5
+@export_subgroup("Press Play")
 @export var normalMult : float = 1.0
 
 #movement direction

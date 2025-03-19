@@ -1,21 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bv0fl6q2c3euq"]
+[gd_scene load_steps=6 format=3 uid="uid://bv0fl6q2c3euq"]
 
 [ext_resource type="Script" path="res://Characters/CDPlayer/HUD/CDPlayerHUD.gd" id="1_lxxt0"]
+[ext_resource type="Texture2D" uid="uid://b0nj6p86xmt4q" path="res://Characters/AbilityUtils/icons/CDPlayer/shotCDPlayer.png" id="2_fh7oc"]
+[ext_resource type="Texture2D" uid="uid://b0qhim3jpm1nq" path="res://Characters/AbilityUtils/icons/CDPlayer/launchCDPlayer.png" id="3_6hu8f"]
+[ext_resource type="Texture2D" uid="uid://cbsgo387obgbf" path="res://Characters/AbilityUtils/icons/CDPlayer/sawCDPlayer.png" id="4_ipi55"]
+[ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="5_va7bt"]
 
-[node name="CDPlayerHUD" type="Control" node_paths=PackedStringArray("ammoLabel")]
+[node name="CDPlayerHUD" type="Control" node_paths=PackedStringArray("ammoLabel", "ammoProgress")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_lxxt0")
-ammoLabel = NodePath("ammoDisplay")
-
-[node name="ammoDisplay" type="Label" parent="."]
-layout_mode = 0
-offset_left = 1208.0
-offset_top = 652.0
-offset_right = 1247.0
-offset_bottom = 699.0
-theme_override_font_sizes/font_size = 34
-text = "50"
+ammoLabel = NodePath("ShotCdPlayer/ammoDisplay")
+ammoProgress = NodePath("ShotCdPlayer/ammoProgress")
 
 [node name="currentCharacter" type="Label" parent="."]
 layout_mode = 0
@@ -25,3 +21,65 @@ offset_right = 321.0
 offset_bottom = 700.0
 theme_override_font_sizes/font_size = 34
 text = "Current: CD Player"
+
+[node name="ShotCdPlayer" type="Sprite2D" parent="."]
+position = Vector2(819, 655)
+texture = ExtResource("2_fh7oc")
+
+[node name="ammoDisplay" type="Label" parent="ShotCdPlayer"]
+offset_left = -21.0
+offset_top = -55.0
+offset_right = 18.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 34
+text = "50"
+
+[node name="Keybind" type="Label" parent="ShotCdPlayer"]
+offset_left = -27.0
+offset_top = -91.0
+offset_right = 21.0
+offset_bottom = -46.0
+theme_override_font_sizes/font_size = 32
+text = "M1"
+
+[node name="ammoProgress" type="TextureProgressBar" parent="ShotCdPlayer"]
+modulate = Color(1, 1, 1, 0.4)
+offset_left = -49.0
+offset_top = -51.0
+offset_right = 79.0
+offset_bottom = 77.0
+scale = Vector2(0.78, 0.8)
+texture_progress = ExtResource("5_va7bt")
+
+[node name="LaunchCdPlayer" type="Sprite2D" parent="."]
+position = Vector2(1071, 656)
+texture = ExtResource("3_6hu8f")
+
+[node name="Keybind" type="Label" parent="LaunchCdPlayer"]
+offset_left = -37.0
+offset_top = -88.0
+offset_right = 34.0
+offset_bottom = -43.0
+theme_override_font_sizes/font_size = 32
+text = "Shift
+"
+
+[node name="SawCdPlayer" type="Sprite2D" parent="."]
+position = Vector2(1203, 657)
+texture = ExtResource("4_ipi55")
+
+[node name="Keybind" type="Label" parent="SawCdPlayer"]
+offset_left = -13.0
+offset_top = -91.0
+offset_right = 35.0
+offset_bottom = -46.0
+theme_override_font_sizes/font_size = 32
+text = "R"
+
+[node name="CDRang" type="Sprite2D" parent="."]
+position = Vector2(946, 657)
+texture = ExtResource("3_6hu8f")
+
+[node name="There is no ability in Ba Sing Se" type="Sprite2D" parent="CDRang"]
+position = Vector2(-1, -6)
+texture = ExtResource("5_va7bt")
