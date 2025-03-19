@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dmqwrhysgiymh"]
 
 [ext_resource type="Script" path="res://Enemies/EnemyTemplate/Bullet/Bullet.gd" id="1_8eq6p"]
-[ext_resource type="Script" path="res://Components/PlayerComponents/hitboxComponent.gd" id="2_q8lu6"]
+[ext_resource type="Script" path="res://Components/PlayerComponents/hitboxComponent/hitboxComponent.gd" id="2_q8lu6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tnxqh"]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://blxnaohgiy7h8"]
 
-[ext_resource type="PackedScene" uid="uid://btfwotlbgo786" path="res://Components/PlayerComponents/healthComponent.tscn" id="1_l6mbk"]
+[ext_resource type="PackedScene" uid="uid://btfwotlbgo786" path="res://Components/PlayerComponents/healthComponent/healthComponent.tscn" id="1_l6mbk"]
 [ext_resource type="Script" path="res://Characters/CharacterTemplate/CharacterTemplate.gd" id="1_poass"]
-[ext_resource type="PackedScene" uid="uid://dj1dmlygkg1r1" path="res://Components/PlayerComponents/hitboxComponent.tscn" id="2_atcq4"]
+[ext_resource type="PackedScene" uid="uid://dj1dmlygkg1r1" path="res://Components/PlayerComponents/hitboxComponent/hitboxComponent.tscn" id="2_atcq4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g6cv3"]
 

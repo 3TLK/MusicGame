@@ -6,12 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://cbsgo387obgbf" path="res://Characters/AbilityUtils/icons/CDPlayer/sawCDPlayer.png" id="4_ipi55"]
 [ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="5_va7bt"]
 
-[node name="CDPlayerHUD" type="Control" node_paths=PackedStringArray("ammoLabel", "ammoProgress")]
+[node name="CDPlayerHUD" type="Control" node_paths=PackedStringArray("ammoLabel", "ammoProgress", "launchProgress", "sawProgress")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_lxxt0")
 ammoLabel = NodePath("ShotCdPlayer/ammoDisplay")
 ammoProgress = NodePath("ShotCdPlayer/ammoProgress")
+launchProgress = NodePath("LaunchCdPlayer/launchProgress")
+sawProgress = NodePath("SawCdPlayer/sawProgress")
 
 [node name="currentCharacter" type="Label" parent="."]
 layout_mode = 0
@@ -64,6 +66,15 @@ theme_override_font_sizes/font_size = 32
 text = "Shift
 "
 
+[node name="launchProgress" type="TextureProgressBar" parent="LaunchCdPlayer"]
+modulate = Color(1, 1, 1, 0.4)
+offset_left = -49.0
+offset_top = -51.0
+offset_right = 79.0
+offset_bottom = 77.0
+scale = Vector2(0.78, 0.8)
+texture_progress = ExtResource("5_va7bt")
+
 [node name="SawCdPlayer" type="Sprite2D" parent="."]
 position = Vector2(1203, 657)
 texture = ExtResource("4_ipi55")
@@ -75,6 +86,15 @@ offset_right = 35.0
 offset_bottom = -46.0
 theme_override_font_sizes/font_size = 32
 text = "R"
+
+[node name="sawProgress" type="TextureProgressBar" parent="SawCdPlayer"]
+modulate = Color(1, 1, 1, 0.4)
+offset_left = -49.0
+offset_top = -51.0
+offset_right = 79.0
+offset_bottom = 77.0
+scale = Vector2(0.78, 0.8)
+texture_progress = ExtResource("5_va7bt")
 
 [node name="CDRang" type="Sprite2D" parent="."]
 position = Vector2(946, 657)

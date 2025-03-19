@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cqwcfr1ltq6d5"]
 
 [ext_resource type="PackedScene" uid="uid://vlwvbnx4pn4g" path="res://Characters/AbilityUtils/GrappleMisc/Tape.tscn" id="1_fgy1w"]
-[ext_resource type="Script" path="res://Components/PlayerComponents/grappleComponent.gd" id="1_h6fa6"]
+[ext_resource type="Script" path="res://Components/PlayerComponents/grappleComponent/grappleComponent.gd" id="1_h6fa6"]
 
 [node name="grappleCast" type="RayCast3D"]
 target_position = Vector3(0, 0, -20)

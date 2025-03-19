@@ -4,31 +4,47 @@ class_name CDPlayer
 @onready var laser : PackedScene = load("res://Characters/CDPlayer/Laser/laser.tscn")
 
 @export_category("Components")
+@export_subgroup("Components")
 @export var healthComponent : HealthComponent
 @export var hitboxComponent : HitboxComponent
 @export var movementComponent : PlayerMovementComponent
 @export var HUD : CDPlayerHUD
+@export var FOV : FOVManager
 
-@export_category("Camera Pivots")
+@export_category("Camera")
+@export var camera : Camera3D
+@export_subgroup("Pivots")
 @export var pivotY : Node3D
 @export var pivotX : Node3D
+@export_subgroup("FOV")
+@export var FovNorm : float = 90
+@export var FovHigh : float = 105
+@export var FovLow : float = 75
 
 @export_category("Character Movement")
+@export_subgroup("Movement")
 @export var moveSpeed : float = 5.0
 @export var accel : float = 5.0
 @export var decel : float = 8.0
+@export_subgroup("Jumping")
 @export var jumpForce : float = 5.0
 @export var gravity : float = 9.8
 
 @export_category("Saw")
+@export_subgroup("Saw Timers")
 @export var sawDuration : Timer
+@export var sawTimer : Timer
 
 @export_category("Laser Info")
+@export_subgroup("Laser")
+@export var laserSpawn : Node3D
+@export_subgroup("Laser Ammo")
 @export var laserAmmoMax : int = 50
 @export var laserAmmo : int = 50
+@export_subgroup("Laser Timers")
 @export var reloadTimer : Timer
 @export var reloadCooldown : Timer
-@export var laserSpawn : Node3D
+@export var shootTimer : Timer
 
 var passiveFloatStrength : float = 9.5
 var activeFloatStrength : Vector3 = Vector3(28.0, 18.0, 28.0)
@@ -42,6 +58,11 @@ var direction : Vector3
 var reloading : bool
 var shootCooldownVar : bool = true
 var laserBullet : RigidBody3D
+
+var launchOnCooldown : bool
+
+var sawOnCooldown : bool
+var sawGoing : bool
 
 var cameraLock : int = -1
 
@@ -65,32 +86,54 @@ func passiveFloat(delta : float) -> void:
 			if velocity.y <= 0:
 				velocity.y += passiveFloatStrength * delta
 
+#handles HUD launch
+func HUDLaunch():
+	if launchOnCooldown:
+		HUD.launchProgress.value = ((4.0 - $Timers/launchCooldown.time_left) / 4) * 100
+
+#handles launch cooldown
+func launchCooldown():
+	HUD.launchProgress.visible = false
+	launchOnCooldown = false
+	HUD.launchProgress.value = 0
+
 #handles launch
-func activeFloat() -> void:
-	if Input.is_action_just_pressed("Shift"):
+func launch() -> void:
+	HUDLaunch()
+	if Input.is_action_just_pressed("Shift") && !launchOnCooldown:
+		$"Timers/launchCooldown".start()
+		launchOnCooldown = true
+		HUD.launchProgress.visible = true
 		velocity = (-pivotX.global_transform.basis.z * activeFloatStrength)
 
 #handles shoot cooldown
 func shootCooldown() -> void:
 	shootCooldownVar = true
 
+#handles starting reloading
+func startReload():
+	reloading = true
+	reloadTimer.start()
+
+#handles the hud for reloading
+func HUDReload():
+	if reloading:
+		HUD.ammoProgress.value = ((0.5 - reloadTimer.time_left) / 0.5) * 100
+		HUD.ammoLabel.text = str(floori(((0.5 - reloadTimer.time_left) / 0.5) * 50))
+
 #handles shooting
 func shootLaser() -> void:
+	HUDReload()
 	if Input.is_action_pressed("LMB") && shootCooldownVar && !reloading && laserAmmo > 0:
 		reloadCooldown.start()
 		laserAmmo -= 1
 		HUD.updateAmmoDisplay(laserAmmo)
-		$shootCooldown.start()
+		shootTimer.start()
 		shootCooldownVar = false
 		laserBullet = laser.instantiate()
 		add_sibling(laserBullet)
 		laserBullet.rotation = pivotX.global_rotation
 		laserBullet.global_position = laserSpawn.global_position
-
-func startReload():
-	reloading = true
-	reloadTimer.start()
-	
 
 #handles reloading
 func reloadLasers() -> void:
@@ -98,20 +141,43 @@ func reloadLasers() -> void:
 	HUD.updateAmmoDisplay(laserAmmo)
 	reloading = false
 
+#handles HUD saw
+func HUDsaw():
+	if sawOnCooldown:
+		HUD.sawProgress.value = ((6.0 - sawTimer.time_left) / 6.0) * 100
+	if sawGoing:
+		HUD.sawProgress.value = (sawDuration.time_left / 2) * 100
+
+#handles saw on cooldown
+func sawCooldown():
+	sawOnCooldown = false
+	HUD.sawProgress.visible = false
+	HUD.sawProgress.value = 0
+
+#handles saw effect ending
+func sawEnded():
+	sawOnCooldown = true
+	sawGoing = false
+	sawTimer.start()
+
+#handles saw ability
 func saw():
-	if Input.is_action_just_pressed("R"):
+	HUDsaw()
+	if Input.is_action_just_pressed("R") && !sawOnCooldown && !sawGoing:
+		HUD.sawProgress.visible = true
+		sawGoing = true
 		sawDuration.start()
 	if sawDuration.time_left > 0:
 		velocity = -pivotX.global_transform.basis.z * 15
 
 #handles moving
 func characterMove(delta: float) -> void:
-	activeFloat()
-	passiveFloat(delta)
 	movementComponent.characterMove(delta, moveSpeed, jumpForce)
 
 #handles function
 func _physics_process(delta: float) -> void:
 	characterMove(delta)
-	saw()
+	passiveFloat(delta)
 	shootLaser()
+	launch()
+	saw()

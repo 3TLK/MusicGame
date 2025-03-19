@@ -6,9 +6,16 @@ class_name CDPlayerHUD
 @export var ammoLabel : Label
 @export var ammoProgress : TextureProgressBar
 
+@export_category("Launch")
+@export var launchProgress : TextureProgressBar
+
+@export_category("Saw")
+@export var sawProgress : TextureProgressBar
+
+@export_category("Parent")
 @export var parent : CharacterBody3D
 
 func updateAmmoDisplay(newAmmoCount : int) -> void:
 	ammoLabel.text = str(newAmmoCount)
-	if newAmmoCount > 0:
+	if newAmmoCount > 0 && !parent.reloading:
 		ammoProgress.value = newAmmoCount*2

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Enemies/EnemyTemplate/EnemyTemplate.gd" id="1_4prwc"]
 [ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="1_7u0sd"]
-[ext_resource type="PackedScene" uid="uid://dptckm62miamw" path="res://Components/EnemyComponents/EnemyBehavior.tscn" id="2_lyrq1"]
+[ext_resource type="PackedScene" uid="uid://dptckm62miamw" path="res://Components/EnemyComponents/EnemyBehavior/EnemyBehavior.tscn" id="2_lyrq1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e64ce"]
 
