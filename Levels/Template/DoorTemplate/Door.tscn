@@ -33,3 +33,11 @@ shape = SubResource("BoxShape3D_ls2c0")
 transform = Transform3D(10.5, 0, 0, 0, 7.5, 0, 0, 0, 1, 9.75, -3.25, 0)
 mesh = SubResource("BoxMesh_di35l")
 skeleton = NodePath("../LeftCol")
+
+[node name="BottomShape" type="CollisionShape3D" parent="Door"]
+transform = Transform3D(9, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.5, 0)
+shape = SubResource("BoxShape3D_ls2c0")
+
+[node name="BottomCol" type="MeshInstance3D" parent="Door"]
+transform = Transform3D(9, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.5, 0)
+mesh = SubResource("BoxMesh_di35l")

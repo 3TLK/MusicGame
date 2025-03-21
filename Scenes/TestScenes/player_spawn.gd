@@ -7,12 +7,19 @@ extends Node3D
 var currentPlayer : CharacterBody3D = null
 var currentEnemy : CharacterBody3D = null
 var spawnEnemy : bool
+var randSeed : int
 
 func walkmanSpawn() -> void:
 	currentPlayer = WalkmanPicked.instantiate()
 
 func cdPlayerSpawn() -> void:
 	currentPlayer = CDPlayerPicked.instantiate()
+
+func setSeed():
+	if ($Camera2D/Container/VBoxContainer/HBoxContainer2/VBoxContainer/LineEdit.text).length() == 8:
+		randSeed = int($Camera2D/Container/VBoxContainer/HBoxContainer2/VBoxContainer/LineEdit.text)
+		seed(randSeed)
+		print(randi_range(1, 1000))
 
 func enemySpawn() -> void:
 	spawnEnemy = true
@@ -23,7 +30,7 @@ func spawnPlayer() -> void:
 	if spawnEnemy:
 		add_sibling(currentEnemy)
 		currentEnemy.global_position = $"enemy spawn".global_position
-	if currentPlayer != null:
+	if currentPlayer != null && ($Camera2D/Container/VBoxContainer/HBoxContainer2/VBoxContainer/LineEdit.text).length() == 8:
 		$Camera2D/Container.visible = false
 		$Camera2D.enabled = false
 		add_sibling(currentPlayer)

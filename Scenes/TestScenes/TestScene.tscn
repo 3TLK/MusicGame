@@ -59,32 +59,54 @@ position = Vector2(-786, -566)
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="player spawn/Camera2D/Container"]
+[node name="VBoxContainer" type="VBoxContainer" parent="player spawn/Camera2D/Container"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="player spawn/Camera2D/Container/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="player spawn/Camera2D/Container/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Enemy" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer"]
+[node name="Enemy" type="Button" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Spawn Enemy"
 
-[node name="EnemyType" type="LineEdit" parent="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer"]
+[node name="EnemyType" type="LineEdit" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "Melee, Range"
 
-[node name="Walkman" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer"]
+[node name="Walkman" type="Button" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Walkman"
 
-[node name="CD Player" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer"]
+[node name="CD Player" type="Button" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "CD Player"
 
-[node name="Spawn" type="Button" parent="player spawn/Camera2D/Container/HBoxContainer"]
+[node name="Spawn" type="Button" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Spawn"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="player spawn/Camera2D/Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Enter Seed"
+
+[node name="LineEdit" type="LineEdit" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Seed Here"
+max_length = 8
+
+[node name="Label" type="Label" parent="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "8 Numbers"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7iamo")
@@ -103,6 +125,7 @@ shape = SubResource("BoxShape3D_li8sg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.33041, 11.5682, 17.6215)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.88154)
 mesh = SubResource("BoxMesh_uotng")
 skeleton = NodePath("../../StaticBody3D3")
 
@@ -113,13 +136,15 @@ shape = SubResource("BoxShape3D_io5s1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.60835, 5.78412, 15.4575)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.8713)
 mesh = SubResource("BoxMesh_uotng")
 skeleton = NodePath("../../StaticBody3D2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("BoxShape3D_io5s1")
 
-[connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/VBoxContainer/Enemy" to="player spawn" method="enemySpawn"]
-[connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/Walkman" to="player spawn" method="walkmanSpawn"]
-[connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/CD Player" to="player spawn" method="cdPlayerSpawn"]
-[connection signal="pressed" from="player spawn/Camera2D/Container/HBoxContainer/Spawn" to="player spawn" method="spawnPlayer"]
+[connection signal="pressed" from="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer/VBoxContainer/Enemy" to="player spawn" method="enemySpawn"]
+[connection signal="pressed" from="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer/Walkman" to="player spawn" method="walkmanSpawn"]
+[connection signal="pressed" from="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer/CD Player" to="player spawn" method="cdPlayerSpawn"]
+[connection signal="pressed" from="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer/Spawn" to="player spawn" method="spawnPlayer"]
+[connection signal="pressed" from="player spawn/Camera2D/Container/VBoxContainer/HBoxContainer2/VBoxContainer/Button" to="player spawn" method="setSeed"]
