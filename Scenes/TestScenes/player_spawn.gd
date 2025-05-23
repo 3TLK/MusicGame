@@ -5,7 +5,7 @@ extends Node3D
 @onready var EnemyTemplatePicked : PackedScene = preload("res://Enemies/EnemyTemplate/EnemyTemplate.tscn")
 
 var currentPlayer : CharacterBody3D = null
-var currentEnemy : CharacterBody3D = null
+var currentEnemy : EnemyTemplate = null
 var spawnEnemy : bool
 var randSeed : int
 
@@ -24,7 +24,7 @@ func setSeed():
 func enemySpawn() -> void:
 	spawnEnemy = true
 	currentEnemy = EnemyTemplatePicked.instantiate()
-	currentEnemy.selfBehavior = $Camera2D/Container/HBoxContainer/VBoxContainer/EnemyType.text
+	currentEnemy.selfBehavior = $"Camera2D/Container/VBoxContainer/HBoxContainer/VBoxContainer/EnemyType".text
 
 func spawnPlayer() -> void:
 	if spawnEnemy:

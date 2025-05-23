@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bv0fl6q2c3euq"]
 
-[ext_resource type="Script" path="res://Characters/CDPlayer/HUD/CDPlayerHUD.gd" id="1_lxxt0"]
+[ext_resource type="Script" uid="uid://b2h3elqqaywbc" path="res://Characters/CDPlayer/HUD/CDPlayerHUD.gd" id="1_lxxt0"]
 [ext_resource type="Texture2D" uid="uid://b0nj6p86xmt4q" path="res://Characters/AbilityUtils/icons/CDPlayer/shotCDPlayer.png" id="2_fh7oc"]
 [ext_resource type="Texture2D" uid="uid://b0qhim3jpm1nq" path="res://Characters/AbilityUtils/icons/CDPlayer/launchCDPlayer.png" id="3_6hu8f"]
 [ext_resource type="Texture2D" uid="uid://cbsgo387obgbf" path="res://Characters/AbilityUtils/icons/CDPlayer/sawCDPlayer.png" id="4_ipi55"]

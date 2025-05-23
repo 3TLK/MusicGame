@@ -23,7 +23,7 @@ func isPlayerInRange(detectionRange : float) -> void:
 	else:
 		playerInRange = false
 
-func move(delta : float, moveSpeed : float, detectionRange : float, coward : float) -> void:
+func move(delta : float, moveSpeed : float, detectionRange : float, coward : int) -> void:
 	isPlayerInRange(detectionRange)
 	if parent.is_on_floor():
 		parent.decel = parent.defaultdecel

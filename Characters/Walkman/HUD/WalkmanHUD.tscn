@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://de61ucdcr3x6u"]
 
-[ext_resource type="Script" path="res://Characters/Walkman/HUD/WalkmanHud.gd" id="1_4n3np"]
+[ext_resource type="Script" uid="uid://dfnlxrjxqqypm" path="res://Characters/Walkman/HUD/WalkmanHud.gd" id="1_4n3np"]
 [ext_resource type="Texture2D" uid="uid://rak5o1leqyug" path="res://Characters/AbilityUtils/icons/Walkman/pressPlay.png" id="1_6lcq5"]
 [ext_resource type="Texture2D" uid="uid://fgj0cgkn7u3y" path="res://Characters/AbilityUtils/icons/Walkman/fastForwardandRewind.png" id="2_26j1d"]
 [ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="3_ldnmf"]

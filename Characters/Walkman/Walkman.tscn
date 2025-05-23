@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dsppvd24l5goh"]
 
-[ext_resource type="Script" path="res://Characters/Walkman/Walkman.gd" id="1_lwat0"]
+[ext_resource type="Script" uid="uid://ct23y6c8btiy0" path="res://Characters/Walkman/Walkman.gd" id="1_lwat0"]
 [ext_resource type="PackedScene" uid="uid://btfwotlbgo786" path="res://Components/PlayerComponents/healthComponent/healthComponent.tscn" id="2_rs7qr"]
 [ext_resource type="PackedScene" uid="uid://dhtdt05f7ehps" path="res://Components/PlayerComponents/FOVManager/FOVManager.tscn" id="3_8t8v5"]
 [ext_resource type="PackedScene" uid="uid://q6f8umok0ydy" path="res://Components/PlayerComponents/PlayerMovementComponent/PlayerMovementComponent.tscn" id="3_b17df"]

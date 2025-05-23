@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://b2dh3afyl6sct"]
 
 [ext_resource type="PackedScene" uid="uid://q486oa1mig7u" path="res://Levels/Template/RoomTemplate/Room.tscn" id="1_0513k"]
-[ext_resource type="Script" path="res://Scenes/TestScenes/player_spawn.gd" id="1_7175x"]
+[ext_resource type="Script" uid="uid://bpa6un2tt8dlh" path="res://Scenes/TestScenes/player_spawn.gd" id="1_7175x"]
 [ext_resource type="Texture2D" uid="uid://dnt28y23tfmfa" path="res://icon.svg" id="2_t2vwk"]
 [ext_resource type="PackedScene" uid="uid://00q170cq02e1" path="res://Levels/Template/WallTemplate/Wall.tscn" id="2_vbe2h"]
 [ext_resource type="PackedScene" uid="uid://cu0gxjcms1h8i" path="res://Levels/Template/DoorTemplate/Door.tscn" id="3_bpqem"]

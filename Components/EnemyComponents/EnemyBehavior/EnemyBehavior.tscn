@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dptckm62miamw"]
 
-[ext_resource type="Script" path="res://Components/EnemyComponents/EnemyBehavior/EnemyBehaviorComponent.gd" id="1_1qcy1"]
+[ext_resource type="Script" uid="uid://0sxixcgw6ox5" path="res://Components/EnemyComponents/EnemyBehavior/EnemyBehaviorComponent.gd" id="1_1qcy1"]
 
 [node name="EnemyMove" type="Node" node_paths=PackedStringArray("shootCooldown")]
 script = ExtResource("1_1qcy1")
